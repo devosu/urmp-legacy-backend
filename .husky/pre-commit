@@ -1,0 +1,6 @@
+# Test install, lint, test, and build
+# the project before each (conventional) commit.
+pnpm install
+pnpm run lint
+pnpm run test
+pnpm run build
