@@ -40,7 +40,7 @@ jobs:
       contents: read
       packages: read
 
-    environment: deploy-gcp-production
+    environment: deploy-gcp-preview
 
     env:
       # Codecov token for uploading coverage reports.
@@ -48,7 +48,7 @@ jobs:
 
       # Other miscellaneous environment variables.
       BACKEND_PORT: ${{ vars.BACKEND_PORT }}
-      FIRESTORE_DATABASE_ID: ${{ vars.PRODUCTION_FIRESTORE_DATABASE_ID }}
+      FIRESTORE_DATABASE_ID: ${{ vars.PREVIEW_FIRESTORE_DATABASE_ID }}
 
     steps:
       - name: Checkout code
