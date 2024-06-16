@@ -120,8 +120,7 @@ jobs:
           region: ${{ vars.GCP_BACKEND_PREVIEW_CLOUD_RUN_SERVICE_REGION }}
           image: ${{ env.NEW_BACKEND_PREVIEW_IMAGE_NAME }}
           env_vars: |
-            PORT=${{ vars.BACKEND_PORT }}
-
+            BACKEND_PORTPORT=${{ vars.BACKEND_PORT }}
             FIRESTORE_DATABASE_ID=${{ vars.PREVIEW_FIRESTORE_DATABASE_ID }}
 
       - name: Report Deployed URL to Actinons Log
@@ -191,8 +190,7 @@ jobs:
           region: ${{ vars.GCP_BACKEND_PRODUCTION_CLOUD_RUN_SERVICE_REGION }}
           image: ${{ env.NEW_BACKEND_PRODUCTION_IMAGE_NAME }}
           env_vars: |
-            PORT=${{ vars.BACKEND_PORT }}
-
+            BACKEND_PORT=${{ vars.BACKEND_PORT }}
             FIRESTORE_DATABASE_ID=${{ vars.PRODUCTION_FIRESTORE_DATABASE_ID }}
 
       - name: Report Deployed URL to Actinons Log

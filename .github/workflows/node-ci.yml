@@ -40,21 +40,15 @@ jobs:
       contents: read
       packages: read
 
+    environment: deploy-gcp-production
+
     env:
       # Codecov token for uploading coverage reports.
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
-      # Firebase app identifiers for running tests.
-      FIREBASE_API_KEY: ${{ vars.FIREBASE_API_KEY }}
-      FIREBASE_AUTH_DOMAIN: ${{ vars.FIREBASE_AUTH_DOMAIN }}
-      FIREBASE_PROJECT_ID: ${{ vars.FIREBASE_PROJECT_ID }}
-      FIREBASE_STORAGE_BUCKET: ${{ vars.FIREBASE_STORAGE_BUCKET }}
-      FIREBASE_MESSAGING_SENDER_ID: ${{ vars.FIREBASE_MESSAGING_SENDER_ID }}
-      FIREBASE_APP_ID: ${{ vars.FIREBASE_APP_ID }}
-
       # Other miscellaneous environment variables.
-      PORT: ${{ vars.PORT }}
-      FIRESTORE_DATABASE_ID: ${{ vars.FIRESTORE_DATABASE_ID }}
+      BACKEND_PORT: ${{ vars.BACKEND_PORT }}
+      FIRESTORE_DATABASE_ID: ${{ vars.PRODUCTION_FIRESTORE_DATABASE_ID }}
 
     steps:
       - name: Checkout code
@@ -88,4 +82,5 @@ jobs:
         uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          slug: KemingHe/template-ts-cucumber-setup
+          slug: devosu/research-mentorship-backend-lite
+          

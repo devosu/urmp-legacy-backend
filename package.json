@@ -26,7 +26,7 @@
     "type": "git",
     "url": "https://github.com/devosu/research-mentorship-backend-lite.git"
   },
-  "packageManager": "pnpm@9.2.0",
+  "packageManager": "pnpm@9.3.0",
   "scripts": {
     "prepare": "husky",
     "postinstall": "echo 'Due to the `prepare` script, Husky is installed as prod dep. DO NOT RUN Husky in production!!!'",
