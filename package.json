@@ -44,6 +44,7 @@
     "prebuild:docker:cacheless": "echo 'Begin CLEAN Docker build test, image name: test-build-backend-0:latest.'",
     "build:docker:cacheless": "docker build --no-cache -t test-build-backend-0:latest .",
     "postbuild:docker:cacheless": "echo 'Docker CLEAN test build complete.'",
+    "release": "release-it",
     "start": "node dist/index.js"
   },
   "dependencies": {
