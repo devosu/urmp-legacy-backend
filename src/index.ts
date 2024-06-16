@@ -11,7 +11,7 @@ config();
 
 // Create an express app and setup port
 const app: Express = express();
-const port = process.env.PORT || 5000;
+const port = process.env.BACKEND_PORT || 5000;
 
 // IMPORTANT:
 // In ExpressJS, routing is setup according to the order of route definitions.
@@ -23,7 +23,7 @@ app.get('/', (request: Request, response: Response) => {
 });
 
 // Setup a heathcheck api route.
-app.get('/api/healthcheck', (request: Request, response: Response) => {
+app.get('/healthcheck', (request: Request, response: Response) => {
   response.status(200).send('OK');
 });
 

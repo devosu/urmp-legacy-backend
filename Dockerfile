@@ -50,18 +50,11 @@ COPY --from=build --chown=node:node /app/dist ./dist
 COPY --from=build --chown=node:node /app/.env.example ./
 
 # Accept incoming firebase env vars only at runtime,
-# latest Firebase app config no longer needs measurement id.
-ENV FIREBASE_API_KEY=
-ENV FIREBASE_AUTH_DOMAIN=
-ENV FIREBASE_PROJECT_ID=
-ENV FIREBASE_STORAGE_BUCKET=
-ENV FIREBASE_MESSAGING_SENDER_ID=
-ENV FIREBASE_APP_ID=
 ENV FIRESTORE_DATABASE_ID=
 
 # Make NextJS's default 3000 port editable via build arg.
-ENV PORT=5000
-EXPOSE $PORT
+ENV BACKEND_PORT=5000
+EXPOSE $BACKEND_PORT
 
 # Add a healthcheck to the ExpressJS server.
 # (Note: for node:22-alpine, curl is not installed by default,

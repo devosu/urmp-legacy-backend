@@ -31,10 +31,10 @@ describe('GET /', () => {
   });
 });
 
-describe('GET /api/healthcheck', () => {
+describe('GET /healthcheck', () => {
   it('responds with 200 OK', async () => {
     const response: request.Response 
-      = await request(app).get('/api/healthcheck');
+      = await request(app).get('/healthcheck');
     expect(response.status).toBe(200);
     expect(response.text).toBe('OK');
   })
