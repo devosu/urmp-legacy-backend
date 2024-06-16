@@ -2,7 +2,7 @@
   "type": "module",
   "private": true,
   "name": "dev-research-mentorship-backend-lite",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Express REST API backend for Dev Research Mentorship Project",
   "keywords": [
     "express",
@@ -35,7 +35,7 @@
     "test": "pnpm run test:unit-and-snapshot && pnpm run test:feature",
     "test:unit-and-snapshot": "jest",
     "test:feature": "cucumber-js",
-    "build": "pnpm run build:tsc && pnpm run build:docker",
+    "build": "pnpm run build:tsc && pnpm run build:docker:cacheless",
     "build:tsc": "tsc",
     "postbuild:tsc": "echo 'Build complete: src/ -> dist/. Use `pnpm start` to start the server.'",
     "prebuild:docker": "echo 'Begin Docker build test, image name: test-build-backend-0:latest.'",
