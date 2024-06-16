@@ -77,6 +77,8 @@ jobs:
     permissions:
       contents: 'read'
       id-token: 'write'
+      # Give write permission to create PR comments.
+      pull-requests: 'write'
 
     runs-on: ubuntu-latest
     steps:
@@ -155,6 +157,7 @@ jobs:
     permissions:
       contents: 'read'
       id-token: 'write'
+      issues: 'write'
 
     runs-on: ubuntu-latest
     steps:
