@@ -55,7 +55,7 @@ jobs:
         uses: 'actions/checkout@v4'
 
       # IMPORTANT!! when using pnpm,
-      # you MUST follow these exact steps:
+      # you MUST follow this EXACT order of:
       # 1. Setup pnpm;
       # 2. Install dependencies;
       # 3. Setup Node.js;
@@ -64,7 +64,10 @@ jobs:
       - name: Install pnpm
         uses: 'pnpm/action-setup@v4'
         with:
-          version: 'latest'
+          version: '9.3.0'
+      # WARNING!
+      # Do NOT use 'latest' as the version for pnpm.
+      # 'latest' may fall behind the actual latest stable release of pnpm.
 
       - name: Install dependencies
         run: pnpm install
