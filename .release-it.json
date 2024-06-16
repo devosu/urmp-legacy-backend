@@ -15,7 +15,8 @@
       "echo",
       "echo 'New release project: ${ name }, version: v${ version } is available to be push.'",
       "echo",
-      "As a code-safety measure, please manully create and push a chore release commit."
+      "echo 'As a code-safety measure, please manully create and push a chore release commit.`",
+      "echo 'i.e. titled `chore(release): v${ version }`.'"
     ]
   },
   "git": {

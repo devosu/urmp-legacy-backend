@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.1](https://github.com/devosu/research-mentorship-backend-lite/compare/v0.2.0...v0.2.1) (2024-06-16)
+
+
+### Bug Fixes
+
+* **.release-it.json:** removed buggy echo command from release-it config ([f52cd4a](https://github.com/devosu/research-mentorship-backend-lite/commit/f52cd4a2dce0eec01816922bfb0a05b8a1fd0018))
+
 ## 0.2.0 (2024-06-16)
 
 
