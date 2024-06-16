@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.5](https://github.com/devosu/research-mentorship-backend-lite/compare/v0.2.4...v0.2.5) (2024-06-16)
+
+
+### Bug Fixes
+
+* **.github/workflows/node-ci.yml:** now use exact ver of pnpm for setup as 'latest' may not update ([5df8be2](https://github.com/devosu/research-mentorship-backend-lite/commit/5df8be26d77e8728774fb9a3aa570996c90cad3c))
+* **deployment and node-ci:** further removed leftover Firebase app config that causes ci issues ([4e25f48](https://github.com/devosu/research-mentorship-backend-lite/commit/4e25f48c9e646fdc5f32c9c545918d1d5f797e23))
+
 ## [0.2.4](https://github.com/devosu/research-mentorship-backend-lite/compare/v0.2.3...v0.2.4) (2024-06-16)
 
 
