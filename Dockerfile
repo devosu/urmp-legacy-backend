@@ -51,12 +51,14 @@ COPY --from=build --chown=node:node /app/.env.example ./
 
 # Accept incoming firebase env vars only at runtime,
 # latest Firebase app config no longer needs measurement id.
-ENV FIREBASE_API_KEY=
-ENV FIREBASE_AUTH_DOMAIN=
-ENV FIREBASE_PROJECT_ID=
-ENV FIREBASE_STORAGE_BUCKET=
-ENV FIREBASE_MESSAGING_SENDER_ID=
-ENV FIREBASE_APP_ID=
+
+# ENV FIREBASE_API_KEY=
+# ENV FIREBASE_AUTH_DOMAIN=
+# ENV FIREBASE_PROJECT_ID=
+# ENV FIREBASE_STORAGE_BUCKET=
+# ENV FIREBASE_MESSAGING_SENDER_ID=
+# ENV FIREBASE_APP_ID=
+
 ENV FIRESTORE_DATABASE_ID=
 
 # Make NextJS's default 3000 port editable via build arg.

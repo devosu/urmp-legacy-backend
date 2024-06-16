@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.2](https://github.com/devosu/research-mentorship-backend-lite/compare/v0.2.1...v0.2.2) (2024-06-16)
+
+
+### Bug Fixes
+
+* **.release-it.json:** debugged and added the missing `echo` to output script ([c15643e](https://github.com/devosu/research-mentorship-backend-lite/commit/c15643e04092aeb43ba8d0e24950f76870953816))
+
 ## [0.2.1](https://github.com/devosu/research-mentorship-backend-lite/compare/v0.2.0...v0.2.1) (2024-06-16)
 
 

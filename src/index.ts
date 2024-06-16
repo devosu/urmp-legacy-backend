@@ -23,7 +23,7 @@ app.get('/', (request: Request, response: Response) => {
 });
 
 // Setup a heathcheck api route.
-app.get('/api/healthcheck', (request: Request, response: Response) => {
+app.get('/healthcheck', (request: Request, response: Response) => {
   response.status(200).send('OK');
 });
 
