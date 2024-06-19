@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.3.0](https://github.com/devosu/research-mentorship-backend-lite/compare/v0.2.5...v0.3.0) (2024-06-19)
+
+
+### Features
+
+* **docs/index.md:** created and stakeholder-reviewed user schema for backend rest api ([1fca723](https://github.com/devosu/research-mentorship-backend-lite/commit/1fca723c61e50f599dc80f5c824a4617a882c51f))
+
+
+### Bug Fixes
+
+* **gcp-deploy.yml:** gave action runner permissions to create PR comments and issues ([062703d](https://github.com/devosu/research-mentorship-backend-lite/commit/062703d21a30d0d871f1caa2ef2268ca69b2dbb1))
+* **node-ci.yml:** updated to use specific pnpm ver to avoid ver incompatibility issue ([dbda552](https://github.com/devosu/research-mentorship-backend-lite/commit/dbda5522197220a8767a10a98f422ce1c75d9425))
+
 ## [0.2.5](https://github.com/devosu/research-mentorship-backend-lite/compare/v0.2.4...v0.2.5) (2024-06-16)
 
 
