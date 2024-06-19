@@ -64,7 +64,7 @@ jobs:
       - name: Install pnpm
         uses: 'pnpm/action-setup@v4'
         with:
-          version: '9.3.0'
+          version: '9.4.0'
       # WARNING!
       # Do NOT use 'latest' as the version for pnpm.
       # 'latest' may fall behind the actual latest stable release of pnpm.
