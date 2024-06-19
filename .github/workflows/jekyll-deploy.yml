@@ -51,6 +51,8 @@ jobs:
 
       - name: Upload Build Artifact
         uses: actions/upload-pages-artifact@v3
+        with:
+          path: './docs/_site'
 
   # Part 2/2: Deploy the Jekyll site to GH Pages.
   deploy-gh-pages:
