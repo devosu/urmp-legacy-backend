@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.3.2](https://github.com/devosu/research-mentorship-backend-lite/compare/v0.3.1...v0.3.2) (2024-06-19)
+
+
+### Bug Fixes
+
+* **.github/workflows/jekyll-deploy.yml:** removed download artifact job, simplified workflow ([35bb527](https://github.com/devosu/research-mentorship-backend-lite/commit/35bb527d0c73100982f078b1d02f9499feddb363))
+* **jekyll-deploy.yml:** added back specific artifact name to prevent `not found` bug ([1e13a7e](https://github.com/devosu/research-mentorship-backend-lite/commit/1e13a7e50ece9962a97e4f178b7686ec0c6c5049))
+* **jekyll-deploy.yml:** added conditionals to prevent comment when no PR is in context ([3faf454](https://github.com/devosu/research-mentorship-backend-lite/commit/3faf454c25f6c4b3dff87edc965a9c2e5b2a1735))
+* **jekyll-deploy.yml:** reordered deployment workflow to debug `artifact not found` bug ([93fc7a2](https://github.com/devosu/research-mentorship-backend-lite/commit/93fc7a24b6b4ccb3e0551305677b9b00290a4dbe))
+
+
+### Reverts
+
+* **users.md and jekyll-deploy.yml:** reverted back to using GH native md pages instead of hosting ([e0b62b9](https://github.com/devosu/research-mentorship-backend-lite/commit/e0b62b98bc1145ce5e85f077963294a9ab279072))
+
 ## [0.3.1](https://github.com/devosu/research-mentorship-backend-lite/compare/v0.3.0...v0.3.1) (2024-06-19)
 
 
