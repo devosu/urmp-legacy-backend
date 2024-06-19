@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.3.1](https://github.com/devosu/research-mentorship-backend-lite/compare/v0.3.0...v0.3.1) (2024-06-19)
+
+
+### Bug Fixes
+
+* **./docs/_config.yml:** added config file for jekyll build to further prevent pathing bugs ([6f70324](https://github.com/devosu/research-mentorship-backend-lite/commit/6f70324c8443ae2280b9b98d66e7c53bd85ffdc1))
+* **jekyll-deploy.yml:** added id-token write to fine-grain ctrl of pages deploy job ([337cbaf](https://github.com/devosu/research-mentorship-backend-lite/commit/337cbafce2b123fd9d56a6124bcd44d05f133a4b))
+* **jekyll-deploy.yml:** added path param  to `actions/upload-pages-artifact@v3` ([7126bf1](https://github.com/devosu/research-mentorship-backend-lite/commit/7126bf1aea6d12679313c93d4244a1228bb65ed9))
+* **jekyll-deploy.yml:** removed requirement to deploy to pages per PR, now only per push to main ([ede99b4](https://github.com/devosu/research-mentorship-backend-lite/commit/ede99b407d0be0056b49b0a95dcda55e211dd7ab))
+
 ## [0.3.0](https://github.com/devosu/research-mentorship-backend-lite/compare/v0.2.5...v0.3.0) (2024-06-19)
 
 

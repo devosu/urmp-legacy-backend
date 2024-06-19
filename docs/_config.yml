@@ -10,3 +10,10 @@ url: 'https://backend-lite.docs.research.osu.dev'
 
 # Define the dir for the Jekyll site.
 baseurl: '/research-mentorship-backend-lite/docs/'
+
+# Define the Markdown parser to mimic the GitHub Markdown style.
+verbose: true
+markdown: kramdown
+kramdown:
+  input: GFM
+  show_warnings: true
