@@ -53,6 +53,7 @@ jobs:
         id: upload-artifact
         uses: 'actions/upload-pages-artifact@v3'
         with:
+          name: 'gh-pages'
           path: './docs/_site/'
 
       # Only comment to PR if the triggering event is a PR.
@@ -73,7 +74,7 @@ jobs:
             Have a great day! :sunflower:
 
             P.S. The build is attempted per PR update, so worry not if you see clones of me.
-            
+
   # Part 2/2: Deploy the Jekyll site to GH Pages.
   deploy-gh-pages:
     name: Deploy GH Pages
@@ -95,6 +96,7 @@ jobs:
         id: gh-pages-deploy
         uses: 'actions/deploy-pages@v3'
         with:
+          artifact_name: 'gh-pages'
           token: ${{ secrets.GITHUB_TOKEN }}
 
           # According to the official `actions/deploy-pages` dev team,
