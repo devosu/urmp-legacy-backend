@@ -33,6 +33,7 @@ jobs:
       contents: 'read'
       pages: 'write'
       id-token: 'write'
+      pull-requests: 'write'
 
     steps:
       - name: Checkout Code
@@ -49,10 +50,24 @@ jobs:
           verbose: true
 
       - name: Upload Build Artifact
+        id: upload-artifact
         uses: 'actions/upload-pages-artifact@v3'
         with:
-          name: gh-pages-build-artifact
           path: './docs/_site/'
+
+      - name: Report Deployed URL to PR
+        uses: 'thollander/actions-comment-pull-request@v2'
+        with:
+          message: |
+            To DEV's devops officer @KemingHe and the triggering person for this deployment @${{ github.triggering_actor }},
+
+            The new documentation preview of ${{ github.repository }} has been genreated and uploaded at:
+              
+            > https://github.com/${{ github.repository_owner }}/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts/${{ steps.upload-artifact.outputs.artifact_id }}
+
+            **Please download and manully test the live preview as part of the PR review process.**
+
+            Have a great day!
 
   # Part 2/2: Deploy the Jekyll site to GH Pages.
   deploy-gh-pages:
@@ -74,6 +89,15 @@ jobs:
       - name: Deploy to GitHub Pages
         id: gh-pages-deploy
         uses: 'actions/deploy-pages@v3'
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+          # According to the official `actions/deploy-pages` dev team,
+          # the preview feature is still in CLOSED alpha.
+          # Please DO NOT add this input field.
+          # However, please keep on the lookout for this feature in the future.
+
+          # preview: false
       
       - name: Report Deployed URL to Actinons Log
         run: echo "Production url at ${{ steps.gh-pages-deploy.outputs.page_url }}"
@@ -97,44 +121,3 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.gh-pages-deploy.outputs.page_url}}
-
-  # Part 1.5/2: Create download link for PR reviewers before deployment.
-  generate-artifact-download:
-    name: Generate Artifact Download
-    runs-on: ubuntu-latest
-    needs: build-gh-pages
-
-    # Fine-grained control over PR comment creation permissions.
-    permissions:
-      contents: 'read'
-      pages: 'read'
-      pull-requests: 'write'
-
-    # When reviewing a PR, download the artifact to preview the site.
-    # The artifact should be statically host-able using any web browser.
-    if: ${{ github.event_name == 'pull_request' }}
-    
-    steps:
-      - name: Download Build Artifact
-        id: download-artifact
-        uses: 'actions/download-artifact@v4'
-        with:
-          name: 'gh-pages-build-artifact'
-          path: './docs/_site/'
-
-      # - name: Report Deployed URL to Actinons Log
-      #   run: echo "Preview url at ${{ steps.download-artifact.outputs.download-path }}"
-
-      # - name: Create PR Comment with Download Link
-      #   uses: 'thollander/actions-comment-pull-request@v2'
-      #   with:
-      #     message: |
-      #       To DEV's devops officer @KemingHe and the triggering person for this deployment @${{ github.triggering_actor }},
-
-      #       The new **documentation** preview of ${{ github.repository }} is availabel for download and review at: 
-
-      #       > ${{ steps.download-artifact.outputs.download-path }}
-
-      #       **Please locally serve and manually test the artifact as part of the PR review process.**
-
-      #       Have a great day!
