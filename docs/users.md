@@ -2,13 +2,13 @@
 
 Schema for the `users` collection in the backend database.
 
-DEV's Research Mentorship project currently only uses one `/v1/users` endpoint. This is because user, user type, user application, and user application information (fields) all share the same strict [one-to-one](https://en.wikipedia.org/wiki/One-to-one_(data_model)) relationsip with each other.
+DEV's Research Mentorship project currently only uses one `/v1/users` endpoint. This is because **user**, **user type**, **user application**, and **user application information (fields)** all share the same strict [one-to-one](https://en.wikipedia.org/wiki/One-to-one_(data_model)) relationsip with each other.
 
 ## :clipboard: Table of Contents
 
-- [:rocket: Getting Started](https://backend-lite.docs.research.osu.dev#rocket-getting-started)
-- [:open_file_folder: All User Fields](https://backend-lite.docs.research.osu.dev#open_file_folder-all-user-fields)
-- [:busts_in_silhouette: User-Field Relationships](https://backend-lite.docs.research.osu.dev#busts_in_silhouette-user-field-relationships)
+- [:rocket: Getting Started](https://github.com/devosu/research-mentorship-backend-lite/blob/main/docs/users.md#rocket-getting-started)
+- [:open_file_folder: All User Fields](https://github.com/devosu/research-mentorship-backend-lite/blob/main/docs/users.md#open_file_folder-all-user-fields)
+- [:busts_in_silhouette: User-Field Relationships](https://github.com/devosu/research-mentorship-backend-lite/blob/main/docs/users.md#busts_in_silhouette-user-field-relationships)
 
 ## :rocket: Getting Started
 
@@ -51,7 +51,7 @@ To report anything from a `typpo` to `critical design change requests`, please s
 
 **TODO**: [@KemingHe](https://github.com/KemingHe)
 
-> Back to [Table of Content](https://backend-lite.docs.research.osu.dev#clipboard-table-of-content)
+> Back to [Table of Contents](https://github.com/devosu/research-mentorship-backend-lite/blob/main/docs/users.md#clipboard-table-of-contents)
 
 ## :open_file_folder: ALL User Fields
 
@@ -95,9 +95,9 @@ To report anything from a `typpo` to `critical design change requests`, please s
 | currentMajor | `set of majors at OSU`, plus `other` |
 | proProfessionalRoute | `set of pre-prof routes at OSU`, plus `other` |
 
-> Back to [Table of Content](https://backend-lite.docs.research.osu.dev#clipboard-table-of-content)
+> Back to [Table of Contents](https://github.com/devosu/research-mentorship-backend-lite/blob/main/docs/users.md#clipboard-table-of-contents)
 
-## User-Field Relationships
+## :busts_in_silhouette: User-Field Relationships
 
 |  |  | **User Types** | mentee | mentor | admin |
 |---|---|---|---|---|---|
@@ -135,4 +135,4 @@ To report anything from a `typpo` to `critical design change requests`, please s
 | :necktie: | Field is filled out during **Application** | `New mentors describe their research during application.` |
 | :hourglass_flowing_sand: | Field is set after **Admin Review** | `New mentors are assigned a scheduling link after approval.` |
 
-> Back to [Table of Content](https://backend-lite.docs.research.osu.dev#clipboard-table-of-content)
+> Back to [Table of Contents](https://github.com/devosu/research-mentorship-backend-lite/blob/main/docs/users.md#clipboard-table-of-contents)
