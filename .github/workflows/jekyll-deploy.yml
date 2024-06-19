@@ -17,13 +17,6 @@ on:
   # Please make a docs PR to main if wishing to update the GH Pages site.
   # The `workflow_dispatch` trigger is disabled.
 
-# Least-privilege permissions for GH Pages deployment.
-permissions:
-  contents: 'read'
-  pages: 'write'
-  # GITHUB_TOKEN is required.
-  id-token: 'write'
-
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
 concurrency:
@@ -35,6 +28,11 @@ jobs:
   build-gh-pages:
     name: Build GH Pages
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: 'read'
+      pages: 'write'
+      id-token: 'write'
 
     steps:
       - name: Checkout Code
@@ -64,6 +62,9 @@ jobs:
 
     # Fine-grained control over issue creation permissions.
     permissions:
+      contents: 'read'
+      pages: 'write'
+      id-token: 'write'
       issues: 'write'
 
     # Only deploy on push to main, NOT on PRs.
@@ -104,8 +105,10 @@ jobs:
     needs: build-gh-pages
 
     # Fine-grained control over PR comment creation permissions.
-    # permissions:
-    #   pull-requests: 'write'
+    permissions:
+      contents: 'read'
+      pages: 'read'
+      pull-requests: 'write'
 
     # When reviewing a PR, download the artifact to preview the site.
     # The artifact should be statically host-able using any web browser.
