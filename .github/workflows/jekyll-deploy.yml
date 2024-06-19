@@ -46,13 +46,13 @@ jobs:
       - name: Jekyll Build
         uses: actions/jekyll-build-pages@v1
         with:
-          source: './docs'
-          destination: './docs/_site'
+          source: './docs/'
+          destination: './docs/_site/'
 
       - name: Upload Build Artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './docs/_site'
+          path: './docs/_site/'
 
   # Part 2/2: Deploy the Jekyll site to GH Pages.
   deploy-gh-pages:

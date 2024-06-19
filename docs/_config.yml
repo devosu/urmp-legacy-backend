@@ -1,0 +1,12 @@
+# ./docs/_config.yml
+#
+# Config file necessary for sub-dir Jekyll site hosting.
+
+# Define domain to enforce HTTPS.
+domain: 'osu.dev'
+
+# Define full URL for the site.
+url: 'https://backend-lite.docs.research.osu.dev'
+
+# Define the dir for the Jekyll site.
+baseurl: '/research-mentorship-backend-lite/docs/'
