@@ -140,7 +140,9 @@ jobs:
 
             **Please manully test the live preview as part of the PR review process.**
 
-            Have a great day!
+            Have a great day! :sunflower:
+
+            P.S. The preview is deployed per PR update, so worry not if you see clones of me.
 
   # -----------------------------------------------------------------------------------------------
   # Concise production deployment job dev, only runs on push to main.
