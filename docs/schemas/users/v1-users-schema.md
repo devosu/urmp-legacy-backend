@@ -15,7 +15,7 @@ Our [Flat-File](https://www.geeksforgeeks.org/flat-file-database/#) design is ba
 ## :rocket: Quick Start
 
 > [!NOTE]
-> If you discovered any `tyypo` or wish suggest a `design change`, please submit a **new issue** to:
+> If you discovered any `tyypo` or wish to suggest a `design change`, please submit a **new issue** to:
 >
 > [https://github.com/devosu/research-mentorship-backend-lite/issues/new](https://github.com/devosu/research-mentorship-backend-lite/issues/new)
 >
@@ -101,10 +101,10 @@ Make sure you can answer these questions (and beyond) by **carefully reading the
 |  | userType |  | :white_check_mark: :necktie: | :white_check_mark: :necktie: | :white_check_mark: :label: |
 |  | adminApproved |  | :white_check_mark: :hourglass_flowing_sand: | :white_check_mark: :hourglass_flowing_sand: | :x: |
 |  | emailAddress |  | :white_check_mark: :fountain_pen: | :white_check_mark: :fountain_pen: | :white_check_mark: :label: |
-|  | profilePictureLink |  | :white_check_mark: :gear: :grey_question:  | :white_check_mark: :gear: :grey_question:  | :white_check_mark: :gear: :grey_question:  |
+|  | profilePictureLink |  | :white_check_mark: :gear: | :white_check_mark: :gear: | :white_check_mark: :gear: |
 | **Academic Info** |  |  |  |  |  |
-|  | firstName |  | :white_check_mark: :fountain_pen: | :white_check_mark: :fountain_pen: | :white_check_mark: :label: :grey_question: |
-|  | lastName |  | :white_check_mark: :fountain_pen: | :white_check_mark: :fountain_pen: | :white_check_mark: :label: :grey_question: |
+|  | firstName |  | :white_check_mark: :fountain_pen: | :white_check_mark: :fountain_pen: | :white_check_mark: :label: |
+|  | lastName |  | :white_check_mark: :fountain_pen: | :white_check_mark: :fountain_pen: | :white_check_mark: :label: |
 |  | academicYear |  | :white_check_mark: :fountain_pen: | :white_check_mark: :fountain_pen: | :x: |
 |  | currentMajor |  | :white_check_mark: :necktie: | :white_check_mark: :necktie: | :x: |
 |  | preProfessionalRoute |  | :white_check_mark: :necktie: :grey_question: | :white_check_mark: :necktie: :grey_question: | :x: |
