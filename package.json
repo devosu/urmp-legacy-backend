@@ -2,7 +2,7 @@
   "type": "module",
   "private": true,
   "name": "dev-research-mentorship-backend-lite",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Express REST API backend for Dev Research Mentorship Project",
   "keywords": [
     "express",
@@ -29,6 +29,7 @@
   "packageManager": "pnpm@9.4.0",
   "scripts": {
     "prepare": "husky",
+    "preinstall": "echo 'Currently using pnpm@9.4.0, remember to update: [ package.json, Dockerfile, and workflow files ].'",
     "postinstall": "echo 'Due to the `prepare` script, Husky is installed as prod dep. DO NOT RUN Husky in production!!!'",
     "lint": "biome ci .",
     "lint:fix": "biome check --write .",
