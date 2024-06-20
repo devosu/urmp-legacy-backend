@@ -2,16 +2,24 @@
 //
 // Simple hello world homepage.
 
-// Web server essential imports.
+// ExpressJS essential imports.
+import bodyParser from 'body-parser';
 import { config } from 'dotenv-safe';
 import express, { Express, Request, Response } from 'express';
+
+// Local component imports.
+import userRouter from '@routes/users';
 
 // Load environment variables.
 config();
 
-// Create an express app and setup port
-const app: Express = express();
+// Create an express app and setup port, use body-parser middleware to handle post requests.
 const port = process.env.BACKEND_PORT || 5000;
+const app: Express = express();
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use('/v1/users', userRouter);
 
 // IMPORTANT:
 // In ExpressJS, routing is setup according to the order of route definitions.
