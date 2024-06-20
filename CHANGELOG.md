@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.3](https://github.com/devosu/research-mentorship-backend-lite/compare/v0.3.2...v0.3.3) (2024-06-20)
+
+
+### Bug Fixes
+
+* **package.json:** enforced pnpm version, added reminder to update all locations ([6e46a52](https://github.com/devosu/research-mentorship-backend-lite/commit/6e46a528fc8c233fa89c01dfe8ae07159e3a232a))
+
 ## [0.3.2](https://github.com/devosu/research-mentorship-backend-lite/compare/v0.3.1...v0.3.2) (2024-06-19)
 
 
