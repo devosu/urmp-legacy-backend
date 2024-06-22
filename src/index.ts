@@ -7,43 +7,41 @@ import bodyParser from 'body-parser';
 import { config } from 'dotenv-safe';
 import express, { Express, Request, Response } from 'express';
 
-// Local component imports.
-import userRouter from '@routes/users';
-
 // Load environment variables.
 config();
 
-// Create an express app and setup port, use body-parser middleware to handle post requests.
-const port = process.env.BACKEND_PORT || 5000;
-const app: Express = express();
+// Local imports.
+import healthcheckRouter from '@routes/healthcheck';
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use('/v1/users', userRouter);
+export const serverPort: string = process.env.BACKEND_PORT || '5000';
 
-// IMPORTANT:
-// In ExpressJS, routing is setup according to the order of route definitions.
-// ALWAYS define the catch-all (wildcard) route after all other routes.
+export function createExpressApp(): Express {
+  // Create an express app.
+  const app: Express = express();
 
-// Setup homepage route with simple response to GET requests.
-app.get('/', (request: Request, response: Response) => {
-  response.status(200).send('Hello World!');
-});
+  // Use body-parser middleware to handle post requests.
+  app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({ extended: true }));
 
-// Setup a heathcheck api route.
-app.get('/healthcheck', (request: Request, response: Response) => {
-  response.status(200).send('OK');
-});
+  // Setup homepage route with simple response to GET requests.
+  app.get('/', (request: Request, response: Response) => {
+    response.status(200).send('Hello World!');
+  });
 
-// Setup a catch-all route for any other request.
-app.get('*', (request: Request, response: Response) => {
-  response.status(404).send('Not Found');
-});
+  // Setup healthcheck route.
+  app.use('/healthcheck', healthcheckRouter());
 
-// Start the server.
-const server = app.listen(port, () => {
-  console.log(`Server is running at http://localhost:${port}`);
-});
+  // Setup a catch-all route for any other request.
+  app.get('*', (request: Request, response: Response) => {
+    response.status(404).send('Not Found');
+  });
 
-// Export for testing and graceful shutdown.
-export { app, port, server };
+  return app;
+};
+
+export function startNodeServer(app: Express, port: string): any {
+  const server: any = app.listen(port, () => {
+    console.log(`Server is listening on port ${port}`);
+  });
+  return server;
+}
