@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.0.0](https://github.com/devosu/research-mentorship-backend-lite/compare/v0.3.3...v1.0.0) (2024-06-23)
+
+
+### ⚠ BREAKING CHANGES
+
+* **app.ts:** entrypoint changed from index.ts to app.ts, plus index routing is no longer defined
+in app.ts but rather has its own router and jest tests
+
+### Features
+
+* **app.ts:** modularization, testing, and config update ([8bde716](https://github.com/devosu/research-mentorship-backend-lite/commit/8bde716acba1e697f00c4afab2779e53201c22ef))
+* **src/routes/users.ts:** added read (all, specific) and create ops to /v1/users endpoint ([8613aef](https://github.com/devosu/research-mentorship-backend-lite/commit/8613aefeda2b64db6877df76377a0211c61efce0))
+
 ## [0.3.3](https://github.com/devosu/research-mentorship-backend-lite/compare/v0.3.2...v0.3.3) (2024-06-20)
 
 
