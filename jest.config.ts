@@ -101,19 +101,25 @@ const config: Config = {
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
   // Must match `tsconfig.json` paths.
   moduleNameMapper: {
+    // ESNEXT compiance mapping.
+    // Source module files with specific handling for `.js` extensions.
+    '^@src/(.*)\\.js$': '<rootDir>/src/$1.ts',
+    '^@config/(.*)\\.js$': '<rootDir>/src/config/$1.ts',
+    '^@middlewares/(.*)\\.js$': '<rootDir>/src/middlewares/$1.ts',
+    '^@models/(.*)\\.js$': '<rootDir>/src/models/$1.ts',
+    '^@routes/(.*)\\.js$': '<rootDir>/src/routes/$1.ts',
+    '^@utils/(.*)\\.js$': '<rootDir>/src/utils/$1.ts',
+
+    // Test module files.
     '^@__tests__/(.*)$': '<rootDir>/__tests__/$1',
     '^@__features__/(.*)$': '<rootDir>/__tests__/__features__/$1',
-    '^@__mocks__/(.*)$': '<rootDir>/__tests__/__mocks__/$1',
-    '^@__data__/(.*)$': '<rootDir>/__mocks__/__data__/$1',
-    '^@__servers__/(.*)$': '<rootDir>/__tests__/__servers__/$1',
-    '^@__utils__/(.*)$': '<rootDir>/__tests__/__utils__/$1',
+
+    // Source module files.
     '^@src/(.*)$': '<rootDir>/src/$1',
     '^@config/(.*)$': '<rootDir>/src/config/$1',
-    '^@controllers/(.*)$': '<rootDir>/src/controllers/$1',
     '^@middlewares/(.*)$': '<rootDir>/src/middlewares/$1',
     '^@models/(.*)$': '<rootDir>/src/models/$1',
     '^@routes/(.*)$': '<rootDir>/src/routes/$1',
-    '^@services/(.*)$': '<rootDir>/src/services/$1',
     '^@utils/(.*)$': '<rootDir>/src/utils/$1',
   },
 
@@ -127,7 +133,7 @@ const config: Config = {
   // notifyMode: 'failure-change',
 
   // A preset that is used as a base for Jest's configuration
-  preset: 'ts-jest',
+  preset: 'ts-jest/presets/js-with-ts-esm',
 
   // Run tests from one or more projects
   // projects: undefined,

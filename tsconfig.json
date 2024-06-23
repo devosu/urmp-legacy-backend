@@ -7,15 +7,11 @@
     "rootDir": "./src",
     "baseUrl": "./",
     "paths": {
-      "@__mocks__/*": ["__mocks__/*"],
-      "@__data__/*": ["__mocks__/__data__/*"],
       "@src/*": ["src/*"],
       "@config/*": ["src/config/*"],
-      "@controllers/*": ["src/controllers/*"],
       "@middlewares/*": ["src/middlewares/*"],
       "@models/*": ["src/models/*"],
       "@routes/*": ["src/routes/*"],
-      "@services/*": ["src/services/*"],
       "@utils/*": ["src/utils/*"],
     },
     "strict": true,
@@ -36,6 +32,5 @@
     "coverage",
     "dist",
     "node_modules",
-    "tmp",
   ],
 }
