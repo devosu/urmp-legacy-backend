@@ -7,8 +7,8 @@
     "defaultBranch": "main"
   },
   "files": {
-    "include": ["**/*.(mjs|js|jsx|json|ts|tsx)"],
-    "ignore": ["dist", "coverage", "node_modules"],
+    "include": [],
+    "ignore": ["dist", "coverage", "node_modules", "./*.json"],
     "ignoreUnknown": true
   },
   "organizeImports": {
@@ -17,7 +17,7 @@
   "formatter": {
     "enabled": true,
     "formatWithErrors": false,
-    "ignore": [],
+    "ignore": ["./src/models/v1/userModel.ts", "./src/models/v1/osuEnums.ts"],
     "attributePosition": "auto",
     "indentStyle": "space",
     "indentWidth": 2,

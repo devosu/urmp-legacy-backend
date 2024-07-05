@@ -87,14 +87,15 @@ jobs:
       - name: Checkout Code
         uses: 'actions/checkout@v4'
 
-      # GCP auth using SA's credentials json
+      # GCP auth using Workdload Identity Federation
       - name: GCP Auth
         id: auth
         uses: 'google-github-actions/auth@v2'
         with:
-          credentials_json: '${{ secrets.GCP_PREVIEW_DEPLOY_SERVICE_ACCOUNT_KEY_JSON }}'
-          # IMPORTANT: 
-          # Removed param "token_format: 'access_token'", deprecated and will cause auth error!
+          token_format: access_token
+          project_id: ${{ vars.GCP_BACKEND_PREVIEW_PROJECT_ID }}
+          workload_identity_provider: ${{ vars.GCP_BACKEND_DEPLOY_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ vars.GCP_BACKEND_PREVIEW_DEPLOY_SERVICE_ACCOUNT_EMAIL }}
 
       # BEGIN - Docker auth and build (NOTE: If you already have a container image, these Docker steps can be omitted)
           
@@ -104,8 +105,8 @@ jobs:
         uses: 'docker/login-action@v3'
         with:
           registry: ${{ vars.GCP_BACKEND_PREVIEW_ARTIFACT_REGISTRY_REGION }}-docker.pkg.dev
-          username: _json_key
-          password: ${{ secrets.GCP_PREVIEW_DEPLOY_SERVICE_ACCOUNT_KEY_JSON }}
+          username: oauth2accesstoken
+          password: ${{ steps.auth.outputs.access_token }}
 
       - name: Docker Build and Push
         run: |-
@@ -123,7 +124,7 @@ jobs:
           image: ${{ env.NEW_BACKEND_PREVIEW_IMAGE_NAME }}
           env_vars: |
             BACKEND_PORTPORT=${{ vars.BACKEND_PORT }}
-            FIRESTORE_DATABASE_ID=${{ vars.PREVIEW_FIRESTORE_DATABASE_ID }}
+            FIRESTORE_DATABASE_ID=${{ vars.FIREBASE_PREVIEW_FIRESTORE_DATABASE_ID }}
 
       - name: Report Deployed URL to Actinons Log
         run: echo "Preview url at ${{ steps.deploy.outputs.url }}"
@@ -171,15 +172,18 @@ jobs:
         id: auth
         uses: 'google-github-actions/auth@v2'
         with:
-          credentials_json: '${{ secrets.GCP_PRODUCTION_DEPLOY_SERVICE_ACCOUNT_KEY_JSON }}'
+          token_format: access_token
+          project_id: ${{ vars.GCP_BACKEND_PRODUCTION_PROJECT_ID }}
+          workload_identity_provider: ${{ vars.GCP_BACKEND_DEPLOY_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ vars.GCP_BACKEND_PRODUCTION_DEPLOY_SERVICE_ACCOUNT_EMAIL }}
     
       - name: Docker Auth
         id: docker-auth
         uses: 'docker/login-action@v3'
         with:
           registry: ${{ vars.GCP_BACKEND_PRODUCTION_ARTIFACT_REGISTRY_REGION }}-docker.pkg.dev
-          username: _json_key
-          password: ${{ secrets.GCP_PRODUCTION_DEPLOY_SERVICE_ACCOUNT_KEY_JSON }}
+          username: oauth2accesstoken
+          password: ${{ steps.auth.outputs.access_token }}
 
       - name: Docker Build and Push
         run: |-
@@ -196,7 +200,7 @@ jobs:
           image: ${{ env.NEW_BACKEND_PRODUCTION_IMAGE_NAME }}
           env_vars: |
             BACKEND_PORT=${{ vars.BACKEND_PORT }}
-            FIRESTORE_DATABASE_ID=${{ vars.PRODUCTION_FIRESTORE_DATABASE_ID }}
+            FIRESTORE_DATABASE_ID=${{ vars.FIREBASE_PRODUCTION_FIRESTORE_DATABASE_ID }}
 
       - name: Report Deployed URL to Actinons Log
         run: echo "Production url at ${{ steps.deploy.outputs.url }}"

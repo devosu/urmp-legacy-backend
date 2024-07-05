@@ -8,8 +8,8 @@
       "pnpm run build"
     ],
     "after:bump": [
-    "echo",
-    "echo 'Successfully bumped to version: v${version}; now generating CHANGELOG.md...'"
+      "echo",
+      "echo 'Successfully bumped to version: v${version}; now generating CHANGELOG.md...'"
     ],
     "after:release": [
       "echo",

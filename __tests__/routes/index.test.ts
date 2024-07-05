@@ -2,13 +2,16 @@
 //
 // Unittests for the / (index) route.
 
+// Type imports.
+import type { Express } from "express";
+
 // ts-jest testing essential imports.
-import { beforeAll, describe, expect, it } from '@jest/globals';
-import express, { Express } from 'express';
-import request from 'supertest';
+import { beforeAll, describe, expect, it } from "@jest/globals";
+import express from "express";
+import request from "supertest";
 
 // Testing module imports.
-import indexRouter from '@routes/index';
+import indexRouter from "@routes/index";
 
 // IMPORTANT!!
 // ts-jest does NOT follow ESNEXT import format.
@@ -16,19 +19,17 @@ import indexRouter from '@routes/index';
 
 // Setup the testing app.
 let app: Express;
-const testPath: string = '/';
+const testPath: string = "/";
 const testResCode: number = 200;
-const testResText: string = 'Hello World!';
-const testErrCode: number = 404;
-const testErrText: string = 'Service Not Found';
+const testResText: string = "Hello World!";
 beforeAll((): void => {
   app = express();
   app.use(testPath, indexRouter());
 });
 
 // /healthcheck test suite.
-describe('GET /', () => {
-  it('responds with 200 Hello World!', async () => {
+describe("GET /", () => {
+  it("responds with 200 Hello World!", async () => {
     const response: request.Response = await request(app).get(testPath);
     expect(response.status).toBe(testResCode);
     expect(response.text).toBe(testResText);
