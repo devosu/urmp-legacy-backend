@@ -1,6 +1,7 @@
 # Custome local files and dir.
 tmp
 temp
+docs/public
 
 # Logs
 logs

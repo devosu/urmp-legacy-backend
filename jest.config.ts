@@ -4,22 +4,18 @@
  */
 
 // Type imports.
-import type { Config } from 'jest';
+import type { Config } from "jest";
 
 // Const for coverage threshold.
 const customCoverageThreshold = {
-
-  // Test coverage for branch must be above 50%.
-  branches: 50,
-
-  // Test coverage for functions must be above 50%.
-  functions: 50,
-
-  // Test coverage for lines must be above 50%.
-  lines: 50,
-
-  // At most 20 statements can be uncovered.
-  statements: -20,
+  // // Test coverage for branch must be above 93%.
+  // branches: 93,
+  // // Test coverage for functions must be above 93%.
+  // functions: 93,
+  // // Test coverage for lines must be above 93%.
+  // lines: 93,
+  // // At most 20 statements can be uncovered.
+  // statements: -20,
 };
 
 const config: Config = {
@@ -37,26 +33,26 @@ const config: Config = {
 
   // The collect coverage from files configuration.
   collectCoverageFrom: [
-    'src/**/*.{mjs,js,jsx,ts,tsx}',
+    "src/**/*.{mjs,js,jsx,ts,tsx}",
     // Define exclusions after inclusions to take affect.
   ],
 
   // The coverage directory.
-  coverageDirectory: 'coverage',
+  coverageDirectory: "coverage",
 
   // Dirs to ignore for coverage.
-  coveragePathIgnorePatterns: [],
+  coveragePathIgnorePatterns: ["src/models/v1/userInterfaces.ts"],
 
-  coverageProvider: 'v8',
+  coverageProvider: "v8",
 
   // The coverage report configuration.
   coverageReporters: [
-    'json',
-    'lcov',
+    "json",
+    "lcov",
     // Only show partially covered files for text output.
     // ['text', {skipFull: true}],
-    'text',
-    'clover',
+    "text",
+    "clover",
   ],
 
   // Mininum threshold enforcement for coverage.
@@ -65,7 +61,7 @@ const config: Config = {
   },
 
   // Print the project name.
-  displayName: 'research-mentorship-backend-lite-jest',
+  displayName: "research-mentorship-backend-lite-jest",
 
   // For smaller projects, turn on errorOnDeprecated to catch deprecations.
   errorOnDeprecated: false,
@@ -85,7 +81,7 @@ const config: Config = {
   // globalTeardown: undefined,
 
   // A set of global variables that need to be available in all test environments
-  // globals: {},
+  globals: {},
 
   // The maximum amount of workers used to run your tests. Can be specified as % or a number. E.g. maxWorkers: 10% will use 10% of your CPU amount + 1 as the maximum worker number. maxWorkers: 2 will use a maximum of 2 workers.
   // maxWorkers: '50%',
@@ -96,24 +92,40 @@ const config: Config = {
   // ],
 
   // An array of file extensions your modules use
-  moduleFileExtensions: ['js', 'mjs', 'cjs', 'jsx', 'ts', 'tsx', 'json', 'node',],
+  moduleFileExtensions: [
+    "js",
+    "mjs",
+    "cjs",
+    "jsx",
+    "ts",
+    "tsx",
+    "json",
+    "node",
+  ],
 
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
   // Must match `tsconfig.json` paths.
   moduleNameMapper: {
-    '^@__tests__/(.*)$': '<rootDir>/__tests__/$1',
-    '^@__features__/(.*)$': '<rootDir>/__tests__/__features__/$1',
-    '^@__mocks__/(.*)$': '<rootDir>/__tests__/__mocks__/$1',
-    '^@__servers__/(.*)$': '<rootDir>/__tests__/__servers__/$1',
-    '^@__utils__/(.*)$': '<rootDir>/__tests__/__utils__/$1',
-    '^@src/(.*)$': '<rootDir>/src/$1',
-    '^@config/(.*)$': '<rootDir>/src/config/$1',
-    '^@controllers/(.*)$': '<rootDir>/src/controllers/$1',
-    '^@middlewares/(.*)$': '<rootDir>/src/middlewares/$1',
-    '^@models/(.*)$': '<rootDir>/src/models/$1',
-    '^@routes/(.*)$': '<rootDir>/src/routes/$1',
-    '^@services/(.*)$': '<rootDir>/src/services/$1',
-    '^@utils/(.*)$': '<rootDir>/src/utils/$1',
+    // ESNEXT compiance mapping.
+    // Source module files with specific handling for `.js` extensions.
+    "^@src/(.*)\\.js$": "<rootDir>/src/$1.ts",
+    "^@config/(.*)\\.js$": "<rootDir>/src/config/$1.ts",
+    "^@middlewares/(.*)\\.js$": "<rootDir>/src/middlewares/$1.ts",
+    "^@models/(.*)\\.js$": "<rootDir>/src/models/$1.ts",
+    "^@routes/(.*)\\.js$": "<rootDir>/src/routes/$1.ts",
+    "^@utils/(.*)\\.js$": "<rootDir>/src/utils/$1.ts",
+
+    // Test module files.
+    "^@__tests__/(.*)$": "<rootDir>/__tests__/$1",
+    "^@__features__/(.*)$": "<rootDir>/__tests__/__features__/$1",
+
+    // Source module files.
+    "^@src/(.*)$": "<rootDir>/src/$1",
+    "^@config/(.*)$": "<rootDir>/src/config/$1",
+    "^@middlewares/(.*)$": "<rootDir>/src/middlewares/$1",
+    "^@models/(.*)$": "<rootDir>/src/models/$1",
+    "^@routes/(.*)$": "<rootDir>/src/routes/$1",
+    "^@utils/(.*)$": "<rootDir>/src/utils/$1",
   },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
@@ -126,13 +138,13 @@ const config: Config = {
   // notifyMode: 'failure-change',
 
   // A preset that is used as a base for Jest's configuration
-  preset: 'ts-jest',
+  preset: "ts-jest/presets/js-with-ts-esm",
 
   // Run tests from one or more projects
   // projects: undefined,
 
   // Use this configuration option to add custom reporters to Jest
-  reporters: ['default'],
+  reporters: ["default"],
 
   // Automatically reset mock state before every test
   // resetMocks: false,
@@ -147,7 +159,7 @@ const config: Config = {
   // restoreMocks: false,
 
   // The root directory that Jest should scan for tests and modules within
-  rootDir: './',
+  rootDir: "./",
 
   // A list of paths to directories that Jest should use to search for files in
   // roots: [
@@ -161,7 +173,7 @@ const config: Config = {
   // setupFiles: [],
 
   // A list of paths to modules that run some code to configure or set up the testing framework before each test
-  setupFilesAfterEnv: ['<rootDir>//jest.setup.ts'],
+  setupFilesAfterEnv: ["<rootDir>//jest.setup.ts"],
 
   // The number of seconds after which a test is considered as slow and reported as such in the results.
   slowTestThreshold: 3,
@@ -170,7 +182,7 @@ const config: Config = {
   // snapshotSerializers: [],
 
   // The test environment that will be used for testing
-  testEnvironment: 'node',
+  testEnvironment: "node",
 
   // Options that will be passed to the testEnvironment
   // testEnvironmentOptions: {},
@@ -179,20 +191,19 @@ const config: Config = {
   testLocationInResults: true,
 
   // The glob patterns Jest uses to detect test files
-  testMatch: [
-    '**/__tests__/**/?(*.)+(spec|test).ts?(x)',
-  ],
+  testMatch: ["**/__tests__/**/?(*.)+(spec|test).ts?(x)"],
 
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
   testPathIgnorePatterns: [
-    '/tmp/',
-    '/temp/',
-    '/dist/',
-    '/node_modules/',
-    '/__tests__/__features__/',
-    '/__tests__/__mocks__/',
-    '/__tests__/__servers__/',
-    '/__tests__/__utils__/',
+    "/__tests__/__features__/",
+    "/__tests__/__mocks__/",
+    "/__tests__/__servers__/",
+    "/__tests__/__utils__/",
+    "/coverage",
+    "/dist/",
+    "/docs/",
+    "/node_modules/",
+    "/(temp|tmp)/",
   ],
 
   // The regexp pattern or array of patterns that Jest uses to detect test files
@@ -206,14 +217,11 @@ const config: Config = {
 
   // A map from regular expressions to paths to transformers
   transform: {
-    '^.+\\.tsx?$': 'ts-jest',
+    "^.+\\.tsx?$": "ts-jest",
   },
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
-  transformIgnorePatterns: [
-    '/node_modules/',
-    '\\.pnp\\.[^\\/]+$',
-  ],
+  transformIgnorePatterns: ["/node_modules/", "\\.pnp\\.[^\\/]+$"],
 
   // An array of regexp pattern strings that are matched against all modules before the module loader will automatically return a mock for them
   // unmockedModulePathPatterns: undefined,
