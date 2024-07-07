@@ -126,7 +126,7 @@ jobs:
             BACKEND_PORTPORT=${{ vars.BACKEND_PORT }}
             FIRESTORE_DATABASE_ID=${{ vars.FIREBASE_PREVIEW_FIRESTORE_DATABASE_ID }}
 
-      - name: Report Deployed URL to Actinons Log
+      - name: Report Deployed URL to Actions Log
         run: echo "Preview url at ${{ steps.deploy.outputs.url }}"
 
       - name: Report Deployed URL to PR
@@ -202,7 +202,7 @@ jobs:
             BACKEND_PORT=${{ vars.BACKEND_PORT }}
             FIRESTORE_DATABASE_ID=${{ vars.FIREBASE_PRODUCTION_FIRESTORE_DATABASE_ID }}
 
-      - name: Report Deployed URL to Actinons Log
+      - name: Report Deployed URL to Actions Log
         run: echo "Production url at ${{ steps.deploy.outputs.url }}"
 
       - name: Report Deployed URL as a New Issue

@@ -84,7 +84,7 @@ export const MenteeSchema = z.object({
   lastName:                     z.string().min(1),
   academicYear:                 UndergradYears,
   currentMajor:                 UndergradMajors,
-  preProfessionalRoute:         z.optional(UndergradPreProfRoutes),
+  preProfessionalRoute:         z.nullable(UndergradPreProfRoutes),
 
   // Research info.
   currentResearchFields:        z.never(),
@@ -109,13 +109,13 @@ export const MentorSchema = z.object({
   lastName:                     z.string().min(1),
   academicYear:                 UndergradYears,
   currentMajor:                 UndergradMajors,
-  preProfessionalRoute:         z.optional(UndergradPreProfRoutes),
+  preProfessionalRoute:         z.nullable(UndergradPreProfRoutes),
 
   // Research info.
   currentResearchFields:        z.array(z.string().min(1)).min(1),
   currentResearchDescription:   z.string().min(1),
   desiredResearchFields:        z.never(),
-  calendarSchedulingLink:       z.optional(z.string().url()),
+  calendarSchedulingLink:       z.nullable(z.string().url()),
 });
 
 // Export the User (union) schema and its inferred type.
@@ -125,4 +125,10 @@ export const UserSchema = z.discriminatedUnion("userType", [
   MenteeSchema,
   MentorSchema,
 ]);
-export type User = z.infer<typeof UserSchema>;
+
+// Type exports for all defined schemas.
+export type AdminSchema =     z.infer<typeof AdminSchema>;
+export type NewSignupSchema = z.infer<typeof NewSignupSchema>;
+export type MenteeSchema =    z.infer<typeof MenteeSchema>;
+export type MentorSchema =    z.infer<typeof MentorSchema>;
+export type UserSchema =      z.infer<typeof UserSchema>;

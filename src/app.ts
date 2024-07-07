@@ -16,6 +16,7 @@ import express from "express";
 // Local router imports.
 import healthcheckRouter from "@routes/healthcheck.js";
 import indexRouter from "@routes/index.js";
+import mentorsRouter from "@routes/v1/mentors.js";
 
 // Load the environement variables.
 config();
@@ -31,6 +32,7 @@ export function createExpressApp(): Express {
   // Setup routes with built-in middleware auth checks.
   app.use("/", indexRouter());
   app.use("/healthcheck", healthcheckRouter());
+  app.use("/v1/mentors", mentorsRouter());
 
   // Catch-all route for any other request (GET, PUT, POST, PATCH, DELETE).
   app.all("*", (request: Request, response: Response) => {

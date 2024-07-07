@@ -6,6 +6,7 @@
 import type { Request, Response } from "express";
 
 // Placeholder controller function definitions.
+import { mockApprovedMentors } from "@mocks/v1/mockApprovedMentors.js";
 
 export function createOneUserController(req: Request, res: Response): void {
   console.log(
@@ -28,7 +29,7 @@ export function readAllApprovedMentorsController(
   console.log(
     "Placeholder readAllApprovedMentorsController. TODO: Actual implementation.",
   );
-  res.status(501).send("Not Implemented");
+  res.status(200).json(mockApprovedMentors);
 }
 
 export function readAllPendingApprovalUsersController(
