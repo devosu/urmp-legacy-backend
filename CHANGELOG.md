@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.1](https://github.com/devosu/research-mentorship-backend-lite/compare/v2.0.0...v2.0.1) (2024-07-08)
+
+
+### Bug Fixes
+
+* **.release-it.json:** corrected commit config with official release-it doc ([e76db6e](https://github.com/devosu/research-mentorship-backend-lite/commit/e76db6edec238de81724a36bf093b288e33a8805))
+
 ## [2.0.0](https://github.com/devosu/research-mentorship-backend-lite/compare/v1.0.0...v2.0.0) (2024-07-08)
 
 
