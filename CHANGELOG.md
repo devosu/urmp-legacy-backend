@@ -1,5 +1,25 @@
 # Changelog
 
+## [2.0.0](https://github.com/devosu/research-mentorship-backend-lite/compare/v1.0.0...v2.0.0) (2024-07-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* **controllers dir:** adopted zod for schema validating, also adopted middleware and controller for http
+request handling, removed placeholder data as it is no longer schema-compliant, all previous code
+will NOT work
+
+### Features
+
+* **controllers dir:** separated model file functions, and adopted zod for schema validation ([6cf41a0](https://github.com/devosu/research-mentorship-backend-lite/commit/6cf41a0ab261a76e481b248d63e2fca5fbfa145c)), closes [#19](https://github.com/devosu/research-mentorship-backend-lite/issues/19)
+* **routes/v1/mentors.ts:** implemented hard-coded version of the all approved mentors route ([556dd4f](https://github.com/devosu/research-mentorship-backend-lite/commit/556dd4fff4fc3ecdc330ec4d1cc631ad3b1ca9e6))
+
+
+### Bug Fixes
+
+* **,release-it.json:** added --ci flag to husky post-commit and removed -y flag from release-it ([9ea06e8](https://github.com/devosu/research-mentorship-backend-lite/commit/9ea06e8bd3535c71628758d266e77fd1076383a6))
+* **.husky/post-commit:** added ci env (true) to prevent release-it triggering husky ([9fde99c](https://github.com/devosu/research-mentorship-backend-lite/commit/9fde99c094ca079e6990d6191e849a713abdf8fd))
+
 ## [1.0.0](https://github.com/devosu/research-mentorship-backend-lite/compare/v0.3.3...v1.0.0) (2024-06-23)
 
 
