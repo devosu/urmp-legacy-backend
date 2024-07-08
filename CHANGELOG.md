@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.0.2](https://github.com/devosu/research-mentorship-backend-lite/compare/v2.0.0...v2.0.2) (2024-07-08)
+
+
+### Bug Fixes
+
+* **.husky/post-commit:** added multi cmd husky disable to prevent hook looping by release-it ([0ec9d2b](https://github.com/devosu/research-mentorship-backend-lite/commit/0ec9d2b676984c7e7cfd980782ea7025a73b7899))
+* **.release-it.json:** corrected commit config with official release-it doc ([e76db6e](https://github.com/devosu/research-mentorship-backend-lite/commit/e76db6edec238de81724a36bf093b288e33a8805))
+
 ## [2.0.1](https://github.com/devosu/research-mentorship-backend-lite/compare/v2.0.0...v2.0.1) (2024-07-08)
 
 
