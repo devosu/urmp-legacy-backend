@@ -26,10 +26,10 @@
     "type": "git",
     "url": "https://github.com/devosu/research-mentorship-backend-lite.git"
   },
-  "packageManager": "pnpm@9.4.0",
+  "packageManager": "pnpm@9.5.0",
   "scripts": {
     "prepare": "husky",
-    "preinstall": "echo 'Currently using pnpm@9.4.0, remember to update: [ package.json, Dockerfile, and workflow files ].'",
+    "preinstall": "echo 'Currently using pnpm@9.5.0, remember to update: [ package.json, Dockerfile, and workflow files ].'",
     "postinstall": "echo 'Due to the `prepare` script, Husky is installed as prod dep. DO NOT RUN Husky in production!!!'",
     "lint": "biome ci .",
     "lint:fix": "biome check --write .",
@@ -45,7 +45,6 @@
     "prebuild:docker:cacheless": "echo 'Begin CLEAN Docker build test, image name: test-build-backend-0:latest.'",
     "build:docker:cacheless": "docker build --no-cache -t test-build-backend-0:latest .",
     "postbuild:docker:cacheless": "echo 'Docker CLEAN test build complete.'",
-    "release": "release-it",
     "start": "NODE_ENV=production node dist/app.js"
   },
   "dependencies": {

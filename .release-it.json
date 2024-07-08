@@ -20,11 +20,14 @@
     ]
   },
   "git": {
-    "commit": false,
-    "push": false,
-    "requrieCleanWorkingDir": true,
     "tag": true,
-    "tagName": "v${version}"
+    "tagName": "v${version}",
+    "requrieCleanWorkingDir": true,
+    "commit": {
+      "message": "chore(release): v${version}",
+      "args": "--no-verify"
+    },
+    "push": false
   },
   "npm": {
     "publish": false

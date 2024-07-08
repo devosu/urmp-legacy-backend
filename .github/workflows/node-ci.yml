@@ -48,7 +48,7 @@ jobs:
 
       # Other miscellaneous environment variables.
       BACKEND_PORT: ${{ vars.BACKEND_PORT }}
-      FIRESTORE_DATABASE_ID: ${{ vars.PREVIEW_FIRESTORE_DATABASE_ID }}
+      FIRESTORE_DATABASE_ID: ${{ vars.FIREBASE_PREVIEW_FIRESTORE_DATABASE_ID }}
 
     steps:
       - name: Checkout code
@@ -64,7 +64,7 @@ jobs:
       - name: Install pnpm
         uses: 'pnpm/action-setup@v4'
         with:
-          version: '9.4.0'
+          version: '9.5.0'
       # WARNING!
       # Do NOT use 'latest' as the version for pnpm.
       # 'latest' may fall behind the actual latest stable release of pnpm.

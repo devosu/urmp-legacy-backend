@@ -17,7 +17,7 @@
   "formatter": {
     "enabled": true,
     "formatWithErrors": false,
-    "ignore": ["./src/models/**/*.ts"],
+    "ignore": ["./jest.config.ts", "./src/models/**/*.ts"],
     "attributePosition": "auto",
     "indentStyle": "space",
     "indentWidth": 2,
