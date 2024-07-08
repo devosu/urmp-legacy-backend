@@ -7,7 +7,7 @@
     ],
     "after:bump": [
       "echo",
-      "echo 'Successfully bumped to version: v${version}; now generating CHANGELOG.md...'"
+      "echo 'Successfully bumped to version: v${ version }; now generating CHANGELOG.md...'"
     ],
     "after:release": [
       "echo",
@@ -18,10 +18,11 @@
     "tag": true,
     "tagName": "v${version}",
     "requireCleanWorkingDir": true,
-    "commit": {
-      "message": "chore(release): bumped version to v${version} via release-it",
-      "args": "--no-verify"
-    },
+    "commit": true,
+    "commitMessage": "chore(release): v${version} via release-it (auto, ci env)",
+    "commitArgs": [
+      "--no-verify"
+    ],
     "push": false
   },
   "npm": {
