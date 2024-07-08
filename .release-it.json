@@ -20,7 +20,7 @@
     "requireCleanWorkingDir": true,
     "commit": {
       "message": "chore(release): bumped version to v${version} via release-it",
-      "args": "--no-verify -y"
+      "args": "--no-verify"
     },
     "push": false
   },
