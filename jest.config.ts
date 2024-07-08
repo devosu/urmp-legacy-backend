@@ -207,12 +207,10 @@ const config: Config = {
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
   testPathIgnorePatterns: [
     "/__tests__/__features__/",
-    "/__tests__/__mocks__/",
-    "/__tests__/__servers__/",
-    "/__tests__/__utils__/",
     "/coverage",
     "/dist/",
     "/docs/",
+    "/.husky/",
     "/node_modules/",
     "/(temp|tmp)/",
   ],

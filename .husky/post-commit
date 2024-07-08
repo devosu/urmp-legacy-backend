@@ -1,1 +1,3 @@
-pnpm release-it --ci
+export HUSKY=0
+CI=true pnpm release-it --ci
+unset HUSKY
