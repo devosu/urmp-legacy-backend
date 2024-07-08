@@ -9,13 +9,24 @@ import { z } from "zod";
 
 // Local imports.
 import {
-  UndergradMajors,
-  UndergradPreProfRoutes,
-  UndergradYears,
-} from "@models/v1/osuEnums.js";
+  UndergradMajorsArray,
+  UndergradPreProfRoutesArray,
+  UndergradYearsArray,
+} from "@src/models/v1/osuStringLiterals.js";
 
-// Research Mentorship project-specific enums.
-export const UserTypes = z.enum(["Admin", "NewSignup", "Mentor", "Mentee"]);
+// OSU undergrad year, major and pre-prof options zod enums.
+export const UndergradYears =         z.enum(UndergradYearsArray);
+export const UndergradMajors =        z.enum(UndergradMajorsArray);
+export const UndergradPreProfRoutes = z.enum(UndergradPreProfRoutesArray);
+
+// Export the types for the OSU undergrad year, major and pre-prof options.
+export type UndergradYears =          z.infer<typeof UndergradYears>;
+export type UndergradMajors =         z.infer<typeof UndergradMajors>;
+export type UndergradPreProfRoutes =  z.infer<typeof UndergradPreProfRoutes>;
+
+// Research Mentorship project-specific zod enums and type export.
+export const UserTypes =              z.enum(["Admin", "NewSignup", "Mentor", "Mentee"]);
+export type UserTypes =               z.infer<typeof UserTypes>;
 
 // User (union) schema, separeted by user workflow stages.
 // Admin user schema definition.
@@ -25,22 +36,22 @@ export const AdminSchema = z.object({
   id:                           z.string().uuid(),
   creationTimestamp:            z.string().datetime({ offset: true }),
   userType:                     z.literal(UserTypes.enum.Admin),
-  adminApproved:                z.never(),
+  // adminApproved:                z.never(),
   emailAddress:                 z.string().email(),
   profilePictureLink:           z.string().url(),
 
   // Academic info.
   firstName:                    z.string().min(1),
   lastName:                     z.string().min(1),
-  academicYear:                 z.never(),
-  currentMajor:                 z.never(),
-  preProfessionalRoute:         z.never(),
+  // academicYear:                 z.never(),
+  // currentMajor:                 z.never(),
+  // preProfessionalRoute:         z.never(),
 
   // Research info.
-  currentResearchFields:        z.never(),
-  currentResearchDescription:   z.never(),
-  desiredResearchFields:        z.never(),
-  calendarSchedulingLink:       z.never(),
+  // currentResearchFields:        z.never(),
+  // currentResearchDescription:   z.never(),
+  // desiredResearchFields:        z.never(),
+  // calendarSchedulingLink:       z.never(),
 });
 
 // NewSignup user (pre-apply) schema definition.
@@ -50,7 +61,7 @@ export const NewSignupSchema = z.object({
   id:                           z.string().uuid(),
   creationTimestamp:            z.string().datetime({ offset: true }),
   userType:                     z.literal(UserTypes.enum.NewSignup),
-  adminApproved:                z.never(),
+  // adminApproved:                z.never(),
   emailAddress:                 z.string().email(),
   profilePictureLink:           z.string().url(),
 
@@ -58,14 +69,14 @@ export const NewSignupSchema = z.object({
   firstName:                    z.string().min(1),
   lastName:                     z.string().min(1),
   academicYear:                 UndergradYears,
-  currentMajor:                 z.never(),
-  preProfessionalRoute:         z.never(),
+  // currentMajor:                 z.never(),
+  // preProfessionalRoute:         z.never(),
 
   // Research info.
-  currentResearchFields:        z.never(),
-  currentResearchDescription:   z.never(),
-  desiredResearchFields:        z.never(),
-  calendarSchedulingLink:       z.never(),
+  // currentResearchFields:        z.never(),
+  // currentResearchDescription:   z.never(),
+  // desiredResearchFields:        z.never(),
+  // calendarSchedulingLink:       z.never(),
 });
 
 // Mentee user (post-apply) interface definition.
@@ -87,10 +98,10 @@ export const MenteeSchema = z.object({
   preProfessionalRoute:         z.nullable(UndergradPreProfRoutes),
 
   // Research info.
-  currentResearchFields:        z.never(),
-  currentResearchDescription:   z.never(),
+  // currentResearchFields:        z.never(),
+  // currentResearchDescription:   z.never(),
   desiredResearchFields:        z.array(z.string().min(1)).min(1),
-  calendarSchedulingLink:       z.never(),
+  // calendarSchedulingLink:       z.never(),
 });
 
 // Mentor user (post-apply) interface definition.
@@ -114,7 +125,7 @@ export const MentorSchema = z.object({
   // Research info.
   currentResearchFields:        z.array(z.string().min(1)).min(1),
   currentResearchDescription:   z.string().min(1),
-  desiredResearchFields:        z.never(),
+  // desiredResearchFields:        z.never(),
   calendarSchedulingLink:       z.nullable(z.string().url()),
 });
 
@@ -131,4 +142,5 @@ export type AdminSchema =     z.infer<typeof AdminSchema>;
 export type NewSignupSchema = z.infer<typeof NewSignupSchema>;
 export type MenteeSchema =    z.infer<typeof MenteeSchema>;
 export type MentorSchema =    z.infer<typeof MentorSchema>;
+
 export type UserSchema =      z.infer<typeof UserSchema>;

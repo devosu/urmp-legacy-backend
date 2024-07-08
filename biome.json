@@ -17,7 +17,7 @@
   "formatter": {
     "enabled": true,
     "formatWithErrors": false,
-    "ignore": ["./src/models/v1/userModel.ts", "./src/models/v1/osuEnums.ts"],
+    "ignore": ["./src/models/**/*.ts"],
     "attributePosition": "auto",
     "indentStyle": "space",
     "indentWidth": 2,
