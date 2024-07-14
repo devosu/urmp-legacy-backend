@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.0.0](https://github.com/devosu/research-mentorship-backend-lite/compare/v2.0.2...v3.0.0) (2024-07-14)
+
+
+### ⚠ BREAKING CHANGES
+
+* **all:** sunset /v0/mentors, base route / now tmp redir to /healthcheck to reduce
+redundancy, mentor schema now requires non-empy array field of proficient languages
+
+### Features
+
+* **all:** sunset /v*/mentors route, complete redesign and implement /v0/users route ([bfb70ac](https://github.com/devosu/research-mentorship-backend-lite/commit/bfb70acfe306e8ca0fc896961e8a292144f979a8)), closes [#18](https://github.com/devosu/research-mentorship-backend-lite/issues/18)
+
 ## [2.0.2](https://github.com/devosu/research-mentorship-backend-lite/compare/v2.0.0...v2.0.2) (2024-07-08)
 
 
