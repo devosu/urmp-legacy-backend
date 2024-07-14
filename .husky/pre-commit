@@ -1,4 +1,7 @@
 pnpm install
-pnpm run lint
+pnpm update
+git add --all
+
+pnpm run lint:fix
 pnpm test
 pnpm run build

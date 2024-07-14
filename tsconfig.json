@@ -10,6 +10,7 @@
       "@src/*": ["src/*"],
       "@config/*": ["src/config/*"],
       "@controllers/*": ["src/controllers/*"],
+      "@errors/*": ["src/errors/*"],
       "@middlewares/*": ["src/middlewares/*"],
       "@mocks/*": ["src/mocks/*"],
       "@models/*": ["src/models/*"],

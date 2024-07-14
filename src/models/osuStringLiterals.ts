@@ -1,22 +1,38 @@
 // ./src/models/v1/osuStringLiterals.ts
 //
-// String literals arrays of OSU's undergrad year, major and pre-prof options.
+// String literals tuples of OSU's undergrad year, major and pre-prof options.
+
+// IMPORTANT!!
+// Using TypeScript Tuple type to create a fixed-length array of string literals.
+// Do NOT type the array as `string[]` or `Array<string>`, as this will allow
+// any number of elements of any type to be added to the array.
 
 // Undergraduate year options string literals, for creating zod enums.
-export const UndergradYearsArray = [
+export const UndergradYearsTuple = [
   "High School",
   "Freshman (1st Year)",
   "Sophomore (2nd Year)",
   "Junior (3rd Year)",
   "Senior (4th Year)",
-  "SuperSenior (5+ Years)"
+  "SuperSenior (5+ Years)",
+] as const;
+
+// Undergraduate pre-professional route options as string literals,
+// for creating zod enums for schema validation.
+export const UndergradPreProfRoutesTuple = [
+  "Pre-Dentistry",
+  "Pre-Law",
+  "Pre-Medicine",
+  "Pre-Optometry",
+  "Pre-Pharmacy",
+  "Pre-Veterinary Medicine",
 ] as const;
 
 // Undergraduate major options string literals for creating zod enums.
 // NOTE!
 // Data manually collected on 06/28/24
 // from `https://undergrad.osu.edu/majors-and-academics/majors`.
-export const UndergradMajorsArray = [
+export const UndergradMajorsTuple = [
   "Accounting",
   "Actuarial science",
   "Aerospace Engineering",
@@ -216,17 +232,5 @@ export const UndergradMajorsArray = [
   "Women's, Gender, and Sexuality Studies",
   "World Literatures",
   "World Politics",
-  "Zoology"
-] as const;
-
-
-// Undergraduate pre-professional route options as string literals,
-// for creating zod enums for schema validation.
-export const UndergradPreProfRoutesArray = [
-  "Pre-Dentistry",
-  "Pre-Law",
-  "Pre-Medicine",
-  "Pre-Optometry",
-  "Pre-Pharmacy",
-  "Pre-Veterinary Medicine"
+  "Zoology",
 ] as const;

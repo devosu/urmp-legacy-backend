@@ -5,11 +5,13 @@ name: Node CI
 
 # Run all-around linting and testing per every push and PR.
 on:
-  [push, pull_request, workflow_dispatch]
+  push             : 
+  pull_request     : 
+  workflow_dispatch: 
 
 jobs:
   super-lint:
-    name: Run Super-Linter
+    name   : Run Super-Linter
     runs-on: ubuntu-latest
 
     permissions:
@@ -28,12 +30,12 @@ jobs:
 
       - name: Run super-linter
         uses: 'super-linter/super-linter@v6'
-        env:
+        env : 
           # For reporting GitHub Actions status checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   report-codecov:
-    name: Report Codecov
+    name   : Report Codecov
     runs-on: ubuntu-latest
 
     permissions:
@@ -41,13 +43,12 @@ jobs:
       packages: read
 
     environment: deploy-gcp-preview
-
-    env:
+    env        : 
       # Codecov token for uploading coverage reports.
-      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      CODECOV_TOKEN        : ${{ secrets.CODECOV_TOKEN }}
 
       # Other miscellaneous environment variables.
-      BACKEND_PORT: ${{ vars.BACKEND_PORT }}
+      BACKEND_PORT         : ${{ vars.BACKEND_PORT }}
       FIRESTORE_DATABASE_ID: ${{ vars.FIREBASE_PREVIEW_FIRESTORE_DATABASE_ID }}
 
     steps:
@@ -76,10 +77,10 @@ jobs:
         uses: 'actions/setup-node@v4'
         with:
           node-version: '22.x'
-          cache: 'pnpm'
+          cache       : 'pnpm'
 
       - name: Run tests
-        run: pnpm test
+        run : pnpm test
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4

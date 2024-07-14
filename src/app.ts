@@ -6,17 +6,26 @@
 import type http from "node:http";
 
 // Type imports.
-import type { Express, Request, Response } from "express";
+import type { Express, NextFunction, Request, Response } from "express";
 
 // ExpressJS app setup essential imports.
 import bodyParser from "body-parser";
 import { config } from "dotenv-safe";
 import express from "express";
+import { StatusCodes } from "http-status-codes";
 
 // Local router imports.
-import healthcheckRouter from "@routes/healthcheck.js";
-import indexRouter from "@routes/index.js";
-import mentorsRouter from "@routes/v1/mentors.js";
+import healthcheckRouter, {
+  HEALTHCHECK_ROUTE,
+} from "@routes/healthcheckRouter.js";
+import v0UsersRouter, { V0USERS_ROUTE } from "@routes/v0/v0UsersRouter.js";
+
+// Local error classes imports.
+import ServiceNotFoundError from "@errors/ServiceNotFoundError.js";
+
+// Local middleware imports.
+import defaultErrorHandler from "@middlewares/defaultErrorHandler.js";
+import defaultRateLimiter from "@middlewares/defaultRateLimiter.js";
 
 // Load the environement variables.
 config();
@@ -29,22 +38,35 @@ export function createExpressApp(): Express {
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
 
-  // Setup routes with built-in middleware auth checks.
-  app.use("/", indexRouter());
-  app.use("/healthcheck", healthcheckRouter());
-  app.use("/v1/mentors", mentorsRouter());
+  // Apply default rate limiter middleware.
+  app.use(defaultRateLimiter);
 
-  // Catch-all route for any other request (GET, PUT, POST, PATCH, DELETE).
-  app.all("*", (request: Request, response: Response) => {
-    response.status(404).send("Service Not Found");
+  // Setup routers with built-in error handlers.
+  app.use(HEALTHCHECK_ROUTE, healthcheckRouter());
+  app.use(V0USERS_ROUTE, v0UsersRouter());
+
+  // Redirect root to /healthcheck (avoid redundant 200), then catch-all to 404.
+  // (Use strict 307 Temporary Redirect not 302 Found (default) for clarity.)
+  app.get("/", (req: Request, res: Response) => {
+    res.redirect(StatusCodes.TEMPORARY_REDIRECT, HEALTHCHECK_ROUTE);
   });
+  app.all("*", (req: Request, res: Response, next: NextFunction) => {
+    next(
+      new ServiceNotFoundError(
+        `Requested service ${req.method} ${req.originalUrl} resource not found.`,
+      ),
+    );
+  });
+
+  // Centralized default error handler.
+  app.use(defaultErrorHandler);
 
   return app;
 }
 
 export function startNodeServer(app: Express, port: string): http.Server {
   return app.listen(port, () => {
-    console.log(`Server is listening on port ${port}`);
+    console.log(`Server is listening on port ${port}...`);
   });
 }
 

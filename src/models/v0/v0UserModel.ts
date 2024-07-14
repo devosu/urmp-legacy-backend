@@ -1,4 +1,4 @@
-// ./src/models/v1/userModel.ts
+// ./src/models/v0/userModel.ts
 //
 // Stage-separated schema definition for the User (union) model, built with Zod.
 
@@ -9,24 +9,31 @@ import { z } from "zod";
 
 // Local imports.
 import {
-  UndergradMajorsArray,
-  UndergradPreProfRoutesArray,
-  UndergradYearsArray,
-} from "@src/models/v1/osuStringLiterals.js";
+  UndergradMajorsTuple,
+  UndergradPreProfRoutesTuple,
+  UndergradYearsTuple,
+} from "@models/osuStringLiterals.js";
+import {
+  Top200WorldLanguagesTuple,
+} from "@models/worldLanguageStringLiterals.js";
 
 // OSU undergrad year, major and pre-prof options zod enums.
-export const UndergradYears =         z.enum(UndergradYearsArray);
-export const UndergradMajors =        z.enum(UndergradMajorsArray);
-export const UndergradPreProfRoutes = z.enum(UndergradPreProfRoutesArray);
+export const UndergradYears         = z.enum(UndergradYearsTuple);
+export const UndergradMajors        = z.enum(UndergradMajorsTuple);
+export const UndergradPreProfRoutes = z.enum(UndergradPreProfRoutesTuple);
 
 // Export the types for the OSU undergrad year, major and pre-prof options.
-export type UndergradYears =          z.infer<typeof UndergradYears>;
-export type UndergradMajors =         z.infer<typeof UndergradMajors>;
-export type UndergradPreProfRoutes =  z.infer<typeof UndergradPreProfRoutes>;
+export type UndergradYears          = z.infer<typeof UndergradYears>;
+export type UndergradMajors         = z.infer<typeof UndergradMajors>;
+export type UndergradPreProfRoutes  = z.infer<typeof UndergradPreProfRoutes>;
+
+// Top 200 world languages zod enum and type export.
+export const Top200WorldLanguages   = z.enum(Top200WorldLanguagesTuple);
+export type Top200WorldLanguages    = z.infer<typeof Top200WorldLanguages>;
 
 // Research Mentorship project-specific zod enums and type export.
-export const UserTypes =              z.enum(["Admin", "NewSignup", "Mentor", "Mentee"]);
-export type UserTypes =               z.infer<typeof UserTypes>;
+export const UserTypes              = z.enum(["Admin", "NewSignup", "Mentor", "Mentee"]);
+export type UserTypes               = z.infer<typeof UserTypes>;
 
 // User (union) schema, separeted by user workflow stages.
 // Admin user schema definition.
@@ -43,6 +50,7 @@ export const AdminSchema = z.object({
   // Academic info.
   firstName:                    z.string().min(1),
   lastName:                     z.string().min(1),
+  // proficientLanguages:          z.never(),
   // academicYear:                 z.never(),
   // currentMajor:                 z.never(),
   // preProfessionalRoute:         z.never(),
@@ -68,6 +76,7 @@ export const NewSignupSchema = z.object({
   // Academic info.
   firstName:                    z.string().min(1),
   lastName:                     z.string().min(1),
+  // proficientLanguages:          z.never(),
   academicYear:                 UndergradYears,
   // currentMajor:                 z.never(),
   // preProfessionalRoute:         z.never(),
@@ -93,6 +102,7 @@ export const MenteeSchema = z.object({
   // Academic info.
   firstName:                    z.string().min(1),
   lastName:                     z.string().min(1),
+  // proficientLanguages:          z.never(),
   academicYear:                 UndergradYears,
   currentMajor:                 UndergradMajors,
   preProfessionalRoute:         z.nullable(UndergradPreProfRoutes),
@@ -118,6 +128,7 @@ export const MentorSchema = z.object({
   // Academic info.
   firstName:                    z.string().min(1),
   lastName:                     z.string().min(1),
+  proficientLanguages:          z.array(Top200WorldLanguages).min(1),
   academicYear:                 UndergradYears,
   currentMajor:                 UndergradMajors,
   preProfessionalRoute:         z.nullable(UndergradPreProfRoutes),
@@ -129,18 +140,16 @@ export const MentorSchema = z.object({
   calendarSchedulingLink:       z.nullable(z.string().url()),
 });
 
-// Export the User (union) schema and its inferred type.
-export const UserSchema = z.discriminatedUnion("userType", [
-  AdminSchema,
+// Export each and union user schemas and their inferred types.
+// IMPORTANT!!
+// AdminSchema is EXCLUDED from the general UserSchema, as it is immutable.
+export const NonAdminUserSchema = z.discriminatedUnion("userType", [
   NewSignupSchema,
   MenteeSchema,
   MentorSchema,
 ]);
-
-// Type exports for all defined schemas.
-export type AdminSchema =     z.infer<typeof AdminSchema>;
-export type NewSignupSchema = z.infer<typeof NewSignupSchema>;
-export type MenteeSchema =    z.infer<typeof MenteeSchema>;
-export type MentorSchema =    z.infer<typeof MentorSchema>;
-
-export type UserSchema =      z.infer<typeof UserSchema>;
+export type AdminSchema         = z.infer<typeof AdminSchema>;
+export type NewSignupSchema     = z.infer<typeof NewSignupSchema>;
+export type MenteeSchema        = z.infer<typeof MenteeSchema>;
+export type MentorSchema        = z.infer<typeof MentorSchema>;
+export type NonAdminUserSchema  = z.infer<typeof NonAdminUserSchema>;
