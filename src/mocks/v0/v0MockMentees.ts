@@ -6,6 +6,26 @@
 import type { MenteeSchema, } from "@src/models/v0/v0UserModel.js";
 
 // Deterministic sample mock mixed pending approval AND approved Mentee document.
+export const sampleMockBeforeApprovedMentee: MenteeSchema = {
+  // Generic info.
+  id                : "bf60d95a-1bad-4be6-8730-4885284b35e0",
+  creationTimestamp : "2024-07-04T20:44:29Z",
+  userType          : "Mentee",
+  adminApproved     : false,
+  emailAddress      : "synke.684@osu.edu",
+  profilePictureLink: "http://dummyimage.com/239x166.png/ff4444/ffffff",
+
+  // Academic info.
+  firstName           : "Vanessa",
+  lastName            : "Synke",
+  academicYear        : "Junior (3rd Year)",
+  currentMajor        : "Electrical and Computer Engineering",
+  preProfessionalRoute: null,
+
+  // Research info.
+  desiredResearchFields: ["Electrical Circuits", "Computer Architecture"],
+};
+
 export const sampleMockMentee: MenteeSchema = {
   // Generic info.
   id                : "bf60d95a-1bad-4be6-8730-4885284b35e0",

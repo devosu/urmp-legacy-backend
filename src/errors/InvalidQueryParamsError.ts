@@ -1,7 +1,7 @@
-// ./src/errors/ServiceNotFoundError.ts
+// ./src/errors/InvalidQueryParamsError.ts
 //
-// Custom enhanced 404 (service) not found error class,
-// specifically for when requested service doesn't exist,
+// Custom enhanced 400 bad request error class, 
+// specifically for when query validation fails, 
 // extended from BaseError.
 
 // Type imports.
@@ -13,13 +13,13 @@ import { StatusCodes, } from "http-status-codes";
 import BaseError from "@errors/BaseError.js";
 
 /**
- * Enhanced 404 (service) not found error class.
+ * Enhanced 400 bad request query validation failure error class.
  * @extends BaseError
  */
-export default class ServiceNotFoundError extends BaseError {
+export default class InvalidQueryParamsError extends BaseError {
   constructor(message: string, details: string | null = null,) {
     super({
-      statusCode: StatusCodes.NOT_FOUND, 
+      statusCode: StatusCodes.BAD_REQUEST, 
       message: message, 
       details: details,
     });

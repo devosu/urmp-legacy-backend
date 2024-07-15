@@ -10,7 +10,7 @@ import type { Express } from "express";
 
 // ts-jest testing essential imports.
 import { afterAll, beforeAll, describe, expect, it } from "@jest/globals";
-import { ReasonPhrases, StatusCodes } from "http-status-codes";
+import { StatusCodes } from "http-status-codes";
 import request from "supertest";
 
 // Testing module imports.
@@ -42,17 +42,13 @@ describe("The backend server", () => {
   it("responds with 200 OK to GET `/healthcheck`", async () => {
     const response: request.Response =
       await request(app).get(testHealthcheckPath);
-    expect(response.status).toBe(StatusCodes.OK);
-    expect(response.text).toBe(ReasonPhrases.OK);
+    expect(response.body.statusCode).toBe(StatusCodes.OK);
   });
 
   it("responds with 404 Service Not Found to other `/healthcheck` request", async () => {
     const response: request.Response =
       await request(app).delete(testHealthcheckPath);
-    expect(response.status).toBe(StatusCodes.NOT_FOUND);
-
-    // Log the response message for human review.
-    console.log(response.text);
+    expect(response.body.statusCode).toBe(StatusCodes.NOT_FOUND);
   });
 
   // Test Suite for the base route ("/") redirect to /healthcheck behavior.
@@ -60,18 +56,12 @@ describe("The backend server", () => {
     const response: request.Response = await request(app).get("/");
     expect(response.status).toBe(StatusCodes.TEMPORARY_REDIRECT);
     expect(response.header.location).toBe(testHealthcheckPath);
-
-    // Log the response message for human review.
-    console.log(response.text);
   });
 
   // Test suite for the catch-all 404 Service Not Found behavior.
   it("responds with 404 Service Not Found to other invalid-route request", async () => {
     const response: request.Response =
       await request(app).post("/invalid-route");
-    expect(response.status).toBe(StatusCodes.NOT_FOUND);
-
-    // Log the response message for human review.
-    console.log(response.text);
+    expect(response.body.statusCode).toBe(StatusCodes.NOT_FOUND);
   });
 });

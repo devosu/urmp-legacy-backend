@@ -1,8 +1,8 @@
-// ./src/errors/ServiceNotFoundError.ts
+// ./src/errors/InvalidSchemaError.ts
 //
-// Custom enhanced 404 (service) not found error class,
-// specifically for when requested service doesn't exist,
-// extended from BaseError.
+// Custom enhanced 400 bad request error class, 
+// specifically for when Zod schema validation fails, 
+// extended from  BaseError.
 
 // Type imports.
 
@@ -13,13 +13,13 @@ import { StatusCodes, } from "http-status-codes";
 import BaseError from "@errors/BaseError.js";
 
 /**
- * Enhanced 404 (service) not found error class.
+ * Enhanced 400 bad request schema validation failure error class.
  * @extends BaseError
  */
-export default class ServiceNotFoundError extends BaseError {
+export default class InvalidSchemaError extends BaseError {
   constructor(message: string, details: string | null = null,) {
     super({
-      statusCode: StatusCodes.NOT_FOUND, 
+      statusCode: StatusCodes.BAD_REQUEST, 
       message: message, 
       details: details,
     });

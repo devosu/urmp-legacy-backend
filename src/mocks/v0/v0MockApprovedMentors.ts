@@ -6,6 +6,29 @@
 import type { MentorSchema, } from "@src/models/v0/v0UserModel.js";
 
 // Deterministic sample mock approved mentor document.
+export const sampleMockBeforeApprovedMentor: MentorSchema = {
+  // Generic info.
+  id                : "42f2584d-a222-4905-9d92-efc96f853135",
+  creationTimestamp : "2024-05-26T13:45:19Z",
+  userType          : "Mentor",
+  adminApproved     : false,
+  emailAddress      : "webland.470@osu.edu",
+  profilePictureLink: "http://dummyimage.com/160x120.png/dddddd/000000",
+
+  // Academic info.
+  firstName           : "Riccardo",
+  lastName            : "Webland",
+  proficientLanguages : ["English - English", "Japanese - 日本語"],
+  academicYear        : "High School",
+  currentMajor        : "Physics",
+  preProfessionalRoute: "Pre-Medicine",
+
+  // Research info.
+  currentResearchFields     : ["Quantum Mechanics", "Particle Physics"],
+  currentResearchDescription: "Phasellus sit amet erat. Nulla tempus.",
+  calendarSchedulingLink    : null,
+};
+
 export const sampleMockApprovedMentor: MentorSchema = {
   // Generic info.
   id                : "42f2584d-a222-4905-9d92-efc96f853135",

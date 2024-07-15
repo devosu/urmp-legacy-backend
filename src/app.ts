@@ -20,11 +20,11 @@ import healthcheckRouter, {
 } from "@routes/healthcheckRouter.js";
 import v0UsersRouter, { V0USERS_ROUTE } from "@routes/v0/v0UsersRouter.js";
 
-// Local error classes imports.
-import ServiceNotFoundError from "@errors/ServiceNotFoundError.js";
-
-// Local middleware imports.
+// Local error class and middleware imports.
 import defaultErrorHandler from "@middlewares/defaultErrorHandler.js";
+import ServiceNotFoundError from "@src/errors/ServiceNotFoundError.js";
+
+// Local rate limiter import.
 import defaultRateLimiter from "@middlewares/defaultRateLimiter.js";
 
 // Load the environement variables.
@@ -46,10 +46,15 @@ export function createExpressApp(): Express {
   app.use(V0USERS_ROUTE, v0UsersRouter());
 
   // Redirect root to /healthcheck (avoid redundant 200), then catch-all to 404.
-  // (Use strict 307 Temporary Redirect not 302 Found (default) for clarity.)
   app.get("/", (req: Request, res: Response) => {
+    // IMPORTANT!!
+    // This breaks the unified json payload format since redirect
+    // does NOT have a body. This is a special case.
+    //
+    // ALSO, for maximum clarity, use strict 307 Temporary Redirect, NOT 302 Found.
     res.redirect(StatusCodes.TEMPORARY_REDIRECT, HEALTHCHECK_ROUTE);
   });
+
   app.all("*", (req: Request, res: Response, next: NextFunction) => {
     next(
       new ServiceNotFoundError(

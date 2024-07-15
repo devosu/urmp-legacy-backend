@@ -1,7 +1,7 @@
-// ./src/errors/ServiceNotFoundError.ts
+// ./src/errors/ResourceNotFoundError.ts
 //
-// Custom enhanced 404 (service) not found error class,
-// specifically for when requested service doesn't exist,
+// Custom enhanced 404 (resource) not found error class,
+// specifically for when requested service exists but resource doesn't,
 // extended from BaseError.
 
 // Type imports.
@@ -13,10 +13,10 @@ import { StatusCodes, } from "http-status-codes";
 import BaseError from "@errors/BaseError.js";
 
 /**
- * Enhanced 404 (service) not found error class.
+ * Enhanced 404 (resource) not found error class.
  * @extends BaseError
  */
-export default class ServiceNotFoundError extends BaseError {
+export default class ResourceNotFoundError extends BaseError {
   constructor(message: string, details: string | null = null,) {
     super({
       statusCode: StatusCodes.NOT_FOUND, 

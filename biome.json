@@ -19,8 +19,10 @@
     "formatWithErrors": false,
     "ignore": [
       "./jest.config.ts",
+      "./src/errors/**/*.ts",
       "./src/mocks/**/*.ts",
-      "./src/models/**/*.ts"
+      "./src/models/**/*.ts",
+      "./src/utils/DefaultAPIResponse.ts"
     ],
     "attributePosition": "auto",
     "indentStyle": "space",

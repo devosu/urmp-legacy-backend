@@ -143,13 +143,13 @@ export const MentorSchema = z.object({
 // Export each and union user schemas and their inferred types.
 // IMPORTANT!!
 // AdminSchema is EXCLUDED from the general UserSchema, as it is immutable.
-export const NonAdminUserSchema = z.discriminatedUnion("userType", [
+export const NonAdminSchema = z.discriminatedUnion("userType", [
   NewSignupSchema,
   MenteeSchema,
   MentorSchema,
 ]);
-export type AdminSchema         = z.infer<typeof AdminSchema>;
-export type NewSignupSchema     = z.infer<typeof NewSignupSchema>;
-export type MenteeSchema        = z.infer<typeof MenteeSchema>;
-export type MentorSchema        = z.infer<typeof MentorSchema>;
-export type NonAdminUserSchema  = z.infer<typeof NonAdminUserSchema>;
+export type AdminSchema     = z.infer<typeof AdminSchema>;
+export type NewSignupSchema = z.infer<typeof NewSignupSchema>;
+export type MenteeSchema    = z.infer<typeof MenteeSchema>;
+export type MentorSchema    = z.infer<typeof MentorSchema>;
+export type NonAdminSchema  = z.infer<typeof NonAdminSchema>;

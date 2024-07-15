@@ -2,16 +2,17 @@
 //
 // Simple '200 OK' healthcheck endpoint for the backend.
 
-// ExpressJS type imports.
+// Type imports.
 import type { NextFunction, Request, Response } from "express";
 
 // ExpressJS and http-status-codes essential imports.
 import { Router } from "express";
-import { ReasonPhrases, StatusCodes } from "http-status-codes";
+import { StatusCodes } from "http-status-codes";
 
-// Local error and middelware imports.
-import ServiceNotFoundError from "@errors/ServiceNotFoundError.js";
+// Local class, error, and middelware imports.
 import defaultErrorHandler from "@middlewares/defaultErrorHandler.js";
+import ServiceNotFoundError from "@src/errors/ServiceNotFoundError.js";
+import DefaultAPIResponse from "@utils/DefaultAPIResponse.js";
 
 // Local util imports.
 
@@ -21,14 +22,25 @@ export default function healthcheckRouter(): Router {
   const router: Router = Router();
 
   router.get("/", (req: Request, res: Response): void => {
-    res.status(StatusCodes.OK).send(ReasonPhrases.OK);
+    res.status(StatusCodes.OK).json(
+      new DefaultAPIResponse<string>(
+        // biome-ignore format: added alignment for clarity.
+        {
+          statusCode    : StatusCodes.OK,
+          successMessage: "Research Mentorship Project backend is live and healthy.",
+          errorMessage  : null,
+          errorDetails  : null,
+          data          : null,
+      },
+      ),
+    );
   });
 
   // Catch-all route for any other request (GET, PUT, POST, PATCH, DELETE).
   router.all("*", (req: Request, res: Response, next: NextFunction) => {
     next(
       new ServiceNotFoundError(
-        `Requested service ${req.method} ${req.originalUrl} resource not found.`,
+        `Requested service ${req.method} ${req.originalUrl} is undefined.`,
       ),
     );
   });

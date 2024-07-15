@@ -110,36 +110,37 @@ const config: Config = {
     // ESNEXT compliance mapping. IMPORTANT!!
     // Must be placed before any other mappings to resolve correctly.
     // Source module files with specific handling for `.js` extensions.
-    "^@src/(.*)\\.js$":         "<rootDir>/src/$1.ts",
+    "^@src/(.*)\\.js$"        : "<rootDir>/src/$1.ts",
 
-    "^@config/(.*)\\.js$":      "<rootDir>/src/config/$1.ts",
+    "^@config/(.*)\\.js$"     : "<rootDir>/src/config/$1.ts",
     "^@controllers/(.*)\\.js$": "<rootDir>/src/controllers/$1.ts",
-    "^@errors/(.*)\\.js$":      "<rootDir>/src/errors/$1.ts",
+    "^@errors/(.*)\\.js$"     : "<rootDir>/src/errors/$1.ts",
+    "^@interfaces/(.*)\\.js$" : "<rootDir>/src/interfaces/$1.ts",
     "^@middlewares/(.*)\\.js$": "<rootDir>/src/middlewares/$1.ts",
-    "^@mocks/(.*)\\.js$":       "<rootDir>/src/mocks/$1.ts",
-    "^@models/(.*)\\.js$":      "<rootDir>/src/models/$1.ts",
-    "^@routes/(.*)\\.js$":      "<rootDir>/src/routes/$1.ts",
-    "^@services/(.*)\\.js$":    "<rootDir>/src/services/$1.ts",
-    "^@utils/(.*)\\.js$":       "<rootDir>/src/utils/$1.ts",
+    "^@mocks/(.*)\\.js$"      : "<rootDir>/src/mocks/$1.ts",
+    "^@models/(.*)\\.js$"     : "<rootDir>/src/models/$1.ts",
+    "^@routes/(.*)\\.js$"     : "<rootDir>/src/routes/$1.ts",
+    "^@services/(.*)\\.js$"   : "<rootDir>/src/services/$1.ts",
+    "^@utils/(.*)\\.js$"      : "<rootDir>/src/utils/$1.ts",
 
     // Test module files.
-    "^@__tests__/(.*)$":    "<rootDir>/__tests__/$1",
+    "^@__tests__/(.*)$"   : "<rootDir>/__tests__/$1",
 
     "^@__features__/(.*)$": "<rootDir>/__tests__/__features__/$1",
 
     // Source module files.
-    "^@src/(.*)$":          "<rootDir>/src/$1",
+    "^@src/(.*)$"        : "<rootDir>/src/$1",
 
-    "^@config/(.*)$":       "<rootDir>/src/config/$1",
-    "^@controllers/(.*)$":  "<rootDir>/src/controllers/$1",
-    "^@errors/(.*)$":       "<rootDir>/src/errors/$1",
-    "^@middlewares/(.*)$":  "<rootDir>/src/middlewares/$1",
-    "^@mocks/(.*)$":        "<rootDir>/src/mocks/$1",
-    "^@models/(.*)$":       "<rootDir>/src/models/$1",
-    "^@routes/(.*)$":       "<rootDir>/src/routes/$1",
-    "^@services/(.*)$":     "<rootDir>/src/services/$1",
-    "^@utils/(.*)$":        "<rootDir>/src/utils/$1",
-
+    "^@config/(.*)$"     : "<rootDir>/src/config/$1",
+    "^@controllers/(.*)$": "<rootDir>/src/controllers/$1",
+    "^@errors/(.*)$"     : "<rootDir>/src/errors/$1",
+    "^@interfaces/(.*)$" : "<rootDir>/src/interfaces/$1",
+    "^@middlewares/(.*)$": "<rootDir>/src/middlewares/$1",
+    "^@mocks/(.*)$"      : "<rootDir>/src/mocks/$1",
+    "^@models/(.*)$"     : "<rootDir>/src/models/$1",
+    "^@routes/(.*)$"     : "<rootDir>/src/routes/$1",
+    "^@services/(.*)$"   : "<rootDir>/src/services/$1",
+    "^@utils/(.*)$"      : "<rootDir>/src/utils/$1",
   },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader

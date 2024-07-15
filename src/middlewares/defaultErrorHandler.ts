@@ -7,10 +7,16 @@
 import type { NextFunction, Request, Response } from "express";
 
 // ExpressJS and http-status-codes essential imports.
-import { ReasonPhrases, StatusCodes } from "http-status-codes";
+import { StatusCodes } from "http-status-codes";
 
-// Local error classes imports.
+// Local error and response class imports.
+import InvalidQueryParamsError from "@errors/InvalidQueryParamsError.js";
+import InvalidSchemaError from "@errors/InvalidSchemaError.js";
+import PermissionDeniedError from "@errors/PermissionDeniedError.js";
+import ResourceNotFoundError from "@errors/ResourceNotFoundError.js";
 import ServiceNotFoundError from "@errors/ServiceNotFoundError.js";
+
+import DefaultAPIResponse from "@utils/DefaultAPIResponse.js";
 
 // Local util imports.
 
@@ -24,16 +30,39 @@ export default function defaultErrorHandler(
   // Log the error for debugging.
   console.error("Error caught by defaultErrorHandler:", error);
 
-  // Handle known errors.
-  if (error instanceof ServiceNotFoundError) {
-    res.status(error.statusCode).json({
-      message: error.message,
-    });
-
-    // Handle unknown errors.
+  // Gracefully handle custom and unknown errors.
+  if (
+    error instanceof InvalidQueryParamsError ||
+    error instanceof InvalidSchemaError ||
+    error instanceof PermissionDeniedError ||
+    error instanceof ResourceNotFoundError ||
+    error instanceof ServiceNotFoundError
+  ) {
+    res.status(error.statusCode).json(
+      new DefaultAPIResponse<string>(
+        // biome-ignore format: added alignment for clarity.
+        {
+          statusCode    : error.statusCode,
+          successMessage: null,
+          errorMessage  : error.message,
+          errorDetails  : error.stack ? error.stack : null,
+          data          : null,
+        },
+      ),
+    );
   } else {
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-      message: `${StatusCodes.INTERNAL_SERVER_ERROR} ${ReasonPhrases.INTERNAL_SERVER_ERROR}: ${error.message}`,
-    });
+    // Else catch-all for unknown errors.
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(
+      new DefaultAPIResponse<string>(
+        // biome-ignore format: added alignment for clarity.
+        {
+          statusCode    : StatusCodes.INTERNAL_SERVER_ERROR,
+          successMessage: null,
+          errorMessage  : error.message,
+          errorDetails  : error.stack ? error.stack : null,
+          data          : null,
+        },
+      ),
+    );
   }
 }
