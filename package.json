@@ -2,7 +2,7 @@
   "type": "module",
   "private": true,
   "name": "dev-research-mentorship-backend-lite",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "Express REST API backend for Dev Research Mentorship Project",
   "keywords": [
     "express",

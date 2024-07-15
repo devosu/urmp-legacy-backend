@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.1.0](https://github.com/devosu/research-mentorship-backend-lite/compare/v3.0.0...v3.1.0) (2024-07-15)
+
+
+### Features
+
+* **all:** enforced unified res, implemented /batch route, found bugs with single/multi same route ([2dd0729](https://github.com/devosu/research-mentorship-backend-lite/commit/2dd0729c07b1fb0198f827ae0921f959d265ec67)), closes [#18](https://github.com/devosu/research-mentorship-backend-lite/issues/18)
+
+
+### Bug Fixes
+
+* **.husky/pre-commit:** moved lint:fix before git add --all to avoid dirty working dir post commit ([537178f](https://github.com/devosu/research-mentorship-backend-lite/commit/537178f43ee3d0847ca779611b3ba459768b67b3))
+
 ## [3.0.0](https://github.com/devosu/research-mentorship-backend-lite/compare/v2.0.2...v3.0.0) (2024-07-14)
 
 
