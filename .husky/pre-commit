@@ -1,7 +1,7 @@
 pnpm install
 pnpm update
+pnpm run lint:fix
 git add --all
 
-pnpm run lint:fix
 pnpm test
 pnpm run build

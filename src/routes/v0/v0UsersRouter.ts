@@ -25,7 +25,7 @@ import v0MockAuthenticator from "@middlewares/v0/v0MockAuthenticator.js";
 import {
   readAllUsersController,
   readBatchUsersController,
-  updateBatchUsersController
+  updateBatchUsersController,
 } from "@controllers/v0/v0BatchUserController.js";
 import {
   createSingleNewSignupController,
