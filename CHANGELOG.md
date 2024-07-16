@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.2.0](https://github.com/devosu/research-mentorship-backend-lite/compare/v3.1.0...v3.2.0) (2024-07-16)
+
+
+### Features
+
+* **defaultapiresponse:** added isProductionData (default true and nullable) flag to default res obj ([17e17da](https://github.com/devosu/research-mentorship-backend-lite/commit/17e17dacb736c3fde39f42e3e62f1a5ffaf8fc80))
+
 ## [3.1.0](https://github.com/devosu/research-mentorship-backend-lite/compare/v3.0.0...v3.1.0) (2024-07-15)
 
 
