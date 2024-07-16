@@ -19,7 +19,9 @@
     "formatWithErrors": false,
     "ignore": [
       "./jest.config.ts",
+      "./src/controllers/v0/**/*.ts",
       "./src/errors/**/*.ts",
+      "./src/middlewares/defaultErrorHandler.ts",
       "./src/mocks/**/*.ts",
       "./src/models/**/*.ts",
       "./src/utils/DefaultAPIResponse.ts"

@@ -26,11 +26,12 @@ export default function healthcheckRouter(): Router {
       new DefaultAPIResponse<string>(
         // biome-ignore format: added alignment for clarity.
         {
-          statusCode    : StatusCodes.OK,
-          successMessage: "Research Mentorship Project backend is live and healthy.",
-          errorMessage  : null,
-          errorDetails  : null,
-          data          : null,
+          statusCode      : StatusCodes.OK,
+          successMessage  : "Research Mentorship Project backend is live and healthy.",
+          errorMessage    : null,
+          errorDetails    : null,
+          data            : null,
+          isProductionData: null,
       },
       ),
     );

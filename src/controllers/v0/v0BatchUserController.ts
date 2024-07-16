@@ -25,27 +25,25 @@ import { mockNewSignupsArray } from "@mocks/v0/v0MockNewSignups.js";
 
 // Deterministic controller function definitions.
 export function readAllUsersController(
-  req: Request,
-  res: Response,
+  req : Request,
+  res : Response,
   next: NextFunction,
 ): void {
   try {
     res.status(StatusCodes.OK).json(
-      new DefaultAPIResponse<AdminSchema | NonAdminSchema>(
-        // biome-ignore format: added alignment for clarity.
-        {
-          statusCode    : StatusCodes.OK,
-          successMessage: "All users successfully retrieved.",
-          errorMessage  : null,
-          errorDetails  : null,
-          data          : [
-            ...mockNewSignupsArray,
-            ...mockMentorsArray,
-            ...mockMenteesArray,
-            ...mockAdminsArray,
-          ],
-        },
-      ),
+      new DefaultAPIResponse<AdminSchema | NonAdminSchema>({
+        statusCode      : StatusCodes.OK,
+        successMessage  : "All users successfully retrieved.",
+        errorMessage    : null,
+        errorDetails    : null,
+        data            : [
+          ...mockNewSignupsArray,
+          ...mockMentorsArray,
+          ...mockMenteesArray,
+          ...mockAdminsArray,
+        ],
+        isProductionData: false,
+      }),
     );
   } catch (error) {
     next(error);
@@ -53,22 +51,20 @@ export function readAllUsersController(
 }
 
 export function readBatchUsersController(
-  req: Request,
-  res: Response,
+  req : Request,
+  res : Response,
   next: NextFunction,
 ): void {
   try {
     res.status(StatusCodes.OK).json(
-      new DefaultAPIResponse<MentorSchema>(
-        // biome-ignore format: added alignment for clarity.
-        {
-          statusCode    : StatusCodes.OK,
-          successMessage: "Requested users successfully retrieved.",
-          errorMessage  : null,
-          errorDetails  : null,
-          data          : mockApprovedMentorsArray,
-        },
-      ),
+      new DefaultAPIResponse<MentorSchema>({
+        statusCode      : StatusCodes.OK,
+        successMessage  : "Requested users successfully retrieved.",
+        errorMessage    : null,
+        errorDetails    : null,
+        data            : mockApprovedMentorsArray,
+        isProductionData: false,
+      }),
     );
   } catch (error) {
     next(error);
@@ -76,22 +72,20 @@ export function readBatchUsersController(
 }
 
 export function updateBatchUsersController(
-  req: Request,
-  res: Response,
+  req : Request,
+  res : Response,
   next: NextFunction,
 ): void {
   try {
     res.status(StatusCodes.OK).json(
-      new DefaultAPIResponse<MentorSchema>(
-        // biome-ignore format: added alignment for clarity.
-        {
-          statusCode    : StatusCodes.OK,
-          successMessage: "Requested users successfully updated.",
-          errorMessage  : null,
-          errorDetails  : null,
-          data          : mockApprovedMentorsArray,
-        },
-      ),
+      new DefaultAPIResponse<MentorSchema>({
+        statusCode      : StatusCodes.OK,
+        successMessage  : "Requested users successfully updated.",
+        errorMessage    : null,
+        errorDetails    : null,
+        data            : mockApprovedMentorsArray,
+        isProductionData: false,
+      }),
     );
   } catch (error) {
     next(error);

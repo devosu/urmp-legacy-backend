@@ -23,9 +23,9 @@ import DefaultAPIResponse from "@utils/DefaultAPIResponse.js";
 // Centralized default error handler definition.
 export default function defaultErrorHandler(
   error: Error,
-  req: Request,
-  res: Response,
-  next: NextFunction,
+  req  : Request,
+  res  : Response,
+  next : NextFunction,
 ): void {
   // Log the error for debugging.
   console.error("Error caught by defaultErrorHandler:", error);
@@ -33,36 +33,32 @@ export default function defaultErrorHandler(
   // Gracefully handle custom and unknown errors.
   if (
     error instanceof InvalidQueryParamsError ||
-    error instanceof InvalidSchemaError ||
-    error instanceof PermissionDeniedError ||
-    error instanceof ResourceNotFoundError ||
+    error instanceof InvalidSchemaError      ||
+    error instanceof PermissionDeniedError   ||
+    error instanceof ResourceNotFoundError   ||
     error instanceof ServiceNotFoundError
   ) {
     res.status(error.statusCode).json(
-      new DefaultAPIResponse<string>(
-        // biome-ignore format: added alignment for clarity.
-        {
-          statusCode    : error.statusCode,
-          successMessage: null,
-          errorMessage  : error.message,
-          errorDetails  : error.stack ? error.stack : null,
-          data          : null,
-        },
-      ),
+      new DefaultAPIResponse<string>({
+        statusCode      : error.statusCode,
+        successMessage  : null,
+        errorMessage    : error.message,
+        errorDetails    : null,
+        data            : null,
+        isProductionData: null,
+      }),
     );
   } else {
     // Else catch-all for unknown errors.
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(
-      new DefaultAPIResponse<string>(
-        // biome-ignore format: added alignment for clarity.
-        {
-          statusCode    : StatusCodes.INTERNAL_SERVER_ERROR,
-          successMessage: null,
-          errorMessage  : error.message,
-          errorDetails  : error.stack ? error.stack : null,
-          data          : null,
-        },
-      ),
+      new DefaultAPIResponse<string>({
+        statusCode      : StatusCodes.INTERNAL_SERVER_ERROR,
+        successMessage  : null,
+        errorMessage    : error.message,
+        errorDetails    : null,
+        data            : null,
+        isProductionData: null,
+      }),
     );
   }
 }

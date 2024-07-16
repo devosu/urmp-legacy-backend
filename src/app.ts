@@ -25,7 +25,7 @@ import defaultErrorHandler from "@middlewares/defaultErrorHandler.js";
 import ServiceNotFoundError from "@src/errors/ServiceNotFoundError.js";
 
 // Local rate limiter import.
-import defaultRateLimiter from "@middlewares/defaultRateLimiter.js";
+// import defaultRateLimiter from "@middlewares/defaultRateLimiter.js";
 
 // Load the environement variables.
 config();
@@ -39,7 +39,7 @@ export function createExpressApp(): Express {
   app.use(bodyParser.urlencoded({ extended: true }));
 
   // Apply default rate limiter middleware.
-  app.use(defaultRateLimiter);
+  // app.use(defaultRateLimiter);
 
   // Setup routers with built-in error handlers.
   app.use(HEALTHCHECK_ROUTE, healthcheckRouter());

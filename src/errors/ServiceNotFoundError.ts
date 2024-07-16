@@ -7,7 +7,7 @@
 // Type imports.
 
 // http-status-codes essential imports.
-import { StatusCodes, } from "http-status-codes";
+import { StatusCodes } from "http-status-codes";
 
 // Local error classes imports.
 import BaseError from "@errors/BaseError.js";
@@ -17,11 +17,14 @@ import BaseError from "@errors/BaseError.js";
  * @extends BaseError
  */
 export default class ServiceNotFoundError extends BaseError {
-  constructor(message: string, details: string | null = null,) {
+  constructor(
+    message: string, 
+    details: string | null = null,
+  ) {
     super({
-      statusCode: StatusCodes.NOT_FOUND, 
-      message: message, 
-      details: details,
+      statusCode: StatusCodes.NOT_FOUND,
+      message   : message,
+      details   : details,
     });
   }
 }

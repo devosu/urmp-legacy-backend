@@ -38,11 +38,12 @@ export function createSingleNewSignupController(
       new DefaultAPIResponse<NewSignupSchema>(
         // biome-ignore format: added alignment for clarity.
         {
-          statusCode    : StatusCodes.CREATED,
-          successMessage: "New user successfully created.",
-          errorMessage  : null,
-          errorDetails  : null,
-          data          : [sampleMockNewSignup,],
+          statusCode      : StatusCodes.CREATED,
+          successMessage  : "New user successfully created.",
+          errorMessage    : null,
+          errorDetails    : null,
+          data            : [sampleMockNewSignup,],
+          isProductionData: false,
         },
       ),
     );
@@ -61,11 +62,12 @@ export function readSingleUserController(
       new DefaultAPIResponse<MentorSchema>(
         // biome-ignore format: added alignment for clarity.
         {
-          statusCode    : StatusCodes.OK,
-          successMessage: "Requested user successfully retrieved.",
-          errorMessage  : null,
-          errorDetails  : null,
-          data          : [sampleMockBeforeApprovedMentor,],
+          statusCode      : StatusCodes.OK,
+          successMessage  : "Requested user successfully retrieved.",
+          errorMessage    : null,
+          errorDetails    : null,
+          data            : [sampleMockBeforeApprovedMentor,],
+          isProductionData: false,
         },
       ),
     );
@@ -84,11 +86,12 @@ export function updateSingleUserController(
       new DefaultAPIResponse<MentorSchema>(
         // biome-ignore format: added alignment for clarity.
         {
-          statusCode    : StatusCodes.OK,
-          successMessage: "Requested user successfully updated.",
-          errorMessage  : null,
-          errorDetails  : null,
-          data          : [sampleMockApprovedMentor,],
+          statusCode      : StatusCodes.OK,
+          successMessage  : "Requested user successfully updated.",
+          errorMessage    : null,
+          errorDetails    : null,
+          data            : [sampleMockApprovedMentor,],
+          isProductionData: false,
         },
       ),
     );
@@ -107,11 +110,12 @@ export function deleteSingleUserController(
       new DefaultAPIResponse<string>(
         // biome-ignore format: added alignment for clarity.
         {
-          statusCode    : StatusCodes.NO_CONTENT,
-          successMessage: "Requested user successfully deleted.",
-          errorMessage  : null,
-          errorDetails  : null,
-          data          : null,
+          statusCode      : StatusCodes.NO_CONTENT,
+          successMessage  : "Requested user successfully deleted.",
+          errorMessage    : null,
+          errorDetails    : null,
+          data            : null,
+          isProductionData: null,
         },
       ),
     );
@@ -130,11 +134,12 @@ export function readSingleUserByEmailController(
       new DefaultAPIResponse<MenteeSchema>(
         // biome-ignore format: added alignment for clarity.
         {
-          statusCode    : StatusCodes.OK,
-          successMessage: "Requested user successfully retrieved.",
-          errorMessage  : null,
-          errorDetails  : null,
-          data          : [sampleMockBeforeApprovedMentee,],
+          statusCode      : StatusCodes.OK,
+          successMessage  : "Requested user successfully retrieved.",
+          errorMessage    : null,
+          errorDetails    : null,
+          data            : [sampleMockBeforeApprovedMentee,],
+          isProductionData: false,
         },
       ),
     );
@@ -153,11 +158,12 @@ export function updateSingleUserByEmailController(
       new DefaultAPIResponse<MenteeSchema>(
         // biome-ignore format: added alignment for clarity.
         {
-          statusCode    : StatusCodes.OK,
-          successMessage: "Requested user successfully updated.",
-          errorMessage  : null,
-          errorDetails  : null,
-          data          : [sampleMockMentee,],
+          statusCode      : StatusCodes.OK,
+          successMessage  : "Requested user successfully updated.",
+          errorMessage    : null,
+          errorDetails    : null,
+          data            : [sampleMockMentee,],
+          isProductionData: false,
         },
       ),
     );
@@ -176,11 +182,12 @@ export function deleteSingleUserByEmailController(
       new DefaultAPIResponse<string>(
         // biome-ignore format: added alignment for clarity.
         {
-          statusCode    : StatusCodes.NO_CONTENT,
-          successMessage: "Requested user successfully deleted.",
-          errorMessage  : null,
-          errorDetails  : null,
-          data          : null,
+          statusCode      : StatusCodes.NO_CONTENT,
+          successMessage  : "Requested user successfully deleted.",
+          errorMessage    : null,
+          errorDetails    : null,
+          data            : null,
+          isProductionData: null,
         },
       ),
     );
