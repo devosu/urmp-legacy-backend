@@ -19,8 +19,8 @@
     "formatWithErrors": false,
     "ignore": [
       "./jest.config.ts",
-      "./src/controllers/v0/**/*.ts",
-      "./src/errors/**/*.ts",
+      "./src/app.ts",
+      "./src/errors/BaseError.ts",
       "./src/middlewares/defaultErrorHandler.ts",
       "./src/mocks/**/*.ts",
       "./src/models/**/*.ts",

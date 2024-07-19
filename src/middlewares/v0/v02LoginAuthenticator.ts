@@ -1,6 +1,6 @@
-// ./src/middlewares/v0/v0MockAuthenticator.ts
+// ./src/middlewares/v0/v02LoginAuthenticator.ts
 //
-// Placeholder for JWT authentication middleware, only calls next().
+// 2nd step in the middleware chain, the login JWT authentication middleware.
 
 // Type imports.
 import type { NextFunction, Request, Response } from "express";
@@ -9,8 +9,8 @@ import type { NextFunction, Request, Response } from "express";
 
 // Local util imports.
 
-// Mock authentication middleware.
-export default function v0MockAuthenticator(
+// Login authentication middleware.
+export default function v02LoginAuthenticator(
   req: Request,
   res: Response,
   next: NextFunction,

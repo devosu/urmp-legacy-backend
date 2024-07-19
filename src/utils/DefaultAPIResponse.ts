@@ -23,34 +23,34 @@ export default class DefaultAPIResponse<T> {
   /**
    * The HTTP status code of the response.
    */
-  statusCode: StatusCodes;
+  statusCode      : StatusCodes;
 
   /**
    * An (auto-generated) human-readable phrase based on the status code.
    * IMPORTANT: DO NOT edit!! This is auto-generated based on the status code.
    */
-  reasonPhrase: string;
+  reasonPhrase    : string;
 
   /**
    * Optional success message, similar to the errorDetails field.
    */
-  successMessage: string | null;
+  successMessage  : string | null;
 
   /**
    * An optional error message. Null if there's no error.
    */
-  errorMessage: string | null;
+  errorMessage    : string | null;
 
   /**
    * Optional detailed information about the error.
    */
-  errorDetails: string | null;
+  errorDetails    : string | null;
 
   /**
    * The payload of the response. Can be null or an array of any type specified by T.
    * When there's an error, this is expected to be null.
    */
-  data: T[] | null;
+  data            : T[] | null;
 
   /**
    * The production data flag. Default to true to prevent devs from

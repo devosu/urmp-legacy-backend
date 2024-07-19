@@ -25,12 +25,15 @@ import healthcheckRouter, {
 // Setup the testing app.
 let app: Express;
 const testPath: string = "/healthcheck";
+
 const testResCode: number = StatusCodes.OK;
 const testResMessage: string =
   "Research Mentorship Project backend is live and healthy.";
+
 const testErrCode: number = StatusCodes.NOT_FOUND;
 const testErrMessage: string =
   "404 Not Found: Requested service POST /healthcheck is undefined.";
+
 beforeAll((): void => {
   app = express();
   app.use(testPath, healthcheckRouter());

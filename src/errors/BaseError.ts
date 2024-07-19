@@ -9,7 +9,6 @@ import { type StatusCodes, getReasonPhrase } from "http-status-codes";
 export interface ErrorOptions 
 // biome-ignore format: added alignment for clarity.
 {
-  statusCode : StatusCodes;
   message    : string;
   details   ?: string | null;
 }
@@ -21,12 +20,12 @@ export default class BaseError extends Error {
   /**
    * The name of the error, typically the class name.
    */
-  name: string;
+  name        : string;
 
   /**
    * The HTTP status code associated with this error.
    */
-  statusCode: StatusCodes;
+  statusCode  : StatusCodes;
 
   /**
    * A short textual description of the HTTP status code.
@@ -36,30 +35,30 @@ export default class BaseError extends Error {
   /**
    * Additional details or resolution steps for the error, if any.
    */
-  details: string | null;
+  details     : string | null;
 
   /**
    * Constructs a new BaseError instance.
-   * @param statusCode - The HTTP status code of the error.
-   * @param message - A message describing the error.
-   * @param details - Optional additional details or resolution steps for the error.
+   * @param statusCode  - The HTTP status code of the error.
+   * @param message     - A message describing the error.
+   * @param details     - Optional additional details or resolution steps for the error.
    */
-  constructor(options: ErrorOptions) 
+  constructor(statusCode: StatusCodes, options: ErrorOptions) 
   // biome-ignore format: added alignment for clarity.
   {
 
     // Use object destructuring to extract the options.
-    const { statusCode, message, details } = options;
+    const { message, details } = options;
 
     const reasonPhrase    = `${statusCode} ${getReasonPhrase(statusCode) || "Unclassified Error"}`;
     const enhancedMessage = `${reasonPhrase}: ${message}`;
 
     super(enhancedMessage);
 
-    this.name         = this.constructor.name;
-    this.statusCode   = statusCode;
-    this.reasonPhrase = reasonPhrase;
-    this.details      = details? details : null;
+    this.name             = this.constructor.name;
+    this.statusCode       = statusCode;
+    this.reasonPhrase     = reasonPhrase;
+    this.details          = details? details : null;
 
     // Ensures that instanceof checks work correctly even when transpiling down to ES5 or lower, 
     // where native class syntax does not exist and classes are simulated using functions.

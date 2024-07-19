@@ -9,16 +9,15 @@ import type { NextFunction, Request, Response } from "express";
 // ExpressJS and http-status-codes essential imports.
 import { StatusCodes } from "http-status-codes";
 
-// Local error and response class imports.
+// Local error imports.
 import InvalidQueryParamsError from "@errors/InvalidQueryParamsError.js";
 import InvalidSchemaError from "@errors/InvalidSchemaError.js";
 import PermissionDeniedError from "@errors/PermissionDeniedError.js";
 import ResourceNotFoundError from "@errors/ResourceNotFoundError.js";
 import ServiceNotFoundError from "@errors/ServiceNotFoundError.js";
 
+// Local utility imports.
 import DefaultAPIResponse from "@utils/DefaultAPIResponse.js";
-
-// Local util imports.
 
 // Centralized default error handler definition.
 export default function defaultErrorHandler(
@@ -43,7 +42,7 @@ export default function defaultErrorHandler(
         statusCode      : error.statusCode,
         successMessage  : null,
         errorMessage    : error.message,
-        errorDetails    : null,
+        errorDetails    : error.details,
         data            : null,
         isProductionData: null,
       }),

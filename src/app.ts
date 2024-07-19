@@ -15,9 +15,7 @@ import express from "express";
 import { StatusCodes } from "http-status-codes";
 
 // Local router imports.
-import healthcheckRouter, {
-  HEALTHCHECK_ROUTE,
-} from "@routes/healthcheckRouter.js";
+import healthcheckRouter, { HEALTHCHECK_ROUTE } from "@routes/healthcheckRouter.js";
 import v0UsersRouter, { V0USERS_ROUTE } from "@routes/v0/v0UsersRouter.js";
 
 // Local error class and middleware imports.
@@ -25,7 +23,7 @@ import defaultErrorHandler from "@middlewares/defaultErrorHandler.js";
 import ServiceNotFoundError from "@src/errors/ServiceNotFoundError.js";
 
 // Local rate limiter import.
-// import defaultRateLimiter from "@middlewares/defaultRateLimiter.js";
+import defaultRateLimiter from "@middlewares/defaultRateLimiter.js";
 
 // Load the environement variables.
 config();
@@ -39,7 +37,7 @@ export function createExpressApp(): Express {
   app.use(bodyParser.urlencoded({ extended: true }));
 
   // Apply default rate limiter middleware.
-  // app.use(defaultRateLimiter);
+  app.use(defaultRateLimiter);
 
   // Setup routers with built-in error handlers.
   app.use(HEALTHCHECK_ROUTE, healthcheckRouter());
@@ -57,9 +55,10 @@ export function createExpressApp(): Express {
 
   app.all("*", (req: Request, res: Response, next: NextFunction) => {
     next(
-      new ServiceNotFoundError(
-        `Requested service ${req.method} ${req.originalUrl} resource not found.`,
-      ),
+      new ServiceNotFoundError({
+        message: `Requested service ${req.method} ${req.originalUrl} resource not found.`,
+        details: "This error is caught by the catch-all route in the main app.",
+      }),
     );
   });
 

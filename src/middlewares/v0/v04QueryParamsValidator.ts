@@ -1,6 +1,7 @@
-// ./src/middlewares/v0/v0QueryParamsValidator.ts
+// ./src/middlewares/v0/v04QueryParamsValidator.ts
 //
-// Generic validator middleware for query params using Zod.
+// 4th step in the middleware chain,
+// the generic validator middleware for query params using Zod.
 
 // Type imports.
 import type { NextFunction, Request, Response } from "express";
@@ -10,7 +11,7 @@ import type { NextFunction, Request, Response } from "express";
 // Local custom error class and util imports.
 
 // Single query param schema validator definition.
-export default function v0SingleQueryParamValidator(
+export default function v04QueryParamsValidator(
   req: Request,
   res: Response,
   next: NextFunction,

@@ -1,7 +1,7 @@
 // ./src/routes/v0/v0UsersRouter.ts
 //
-// V0 of user router, for frontend dev, implements schema validation,
-// and respond with deterministic mock data.
+// V0 batch users request router, implements schema validation,
+// and respond with deterministic mock data, for frontend dev only.
 
 // Type imports.
 import type { NextFunction, Request, Response } from "express";
@@ -9,141 +9,144 @@ import type { NextFunction, Request, Response } from "express";
 // ExpressJS and http-status-codes essential imports.
 import { Router } from "express";
 
-// Local schema and mock imports.
+// Local UserType and schema imports.
+// import { UserType } from "@models/v0/v0UserModel.js";
 
 // Local error and error handling middleware imports.
+import ServiceNotFoundError from "@errors/ServiceNotFoundError.js";
 import defaultErrorHandler from "@middlewares/defaultErrorHandler.js";
-import ServiceNotFoundError from "@src/errors/ServiceNotFoundError.js";
 
 // Local workflow middleware and controller imports.
-import v0MockAuthenticator from "@middlewares/v0/v0MockAuthenticator.js";
-// import v0QueryParamsValidator from "@middlewares/v0/v0QueryParamsValidator.js";
-// import v0SchemaArrayValidator from "@middlewares/v0/v0SchemaArrayValidator.js";
-// import v0SchemaValidator from "@middlewares/v0/v0SchemaValidator.js";
+import v01FrontendAuthenticator from "@middlewares/v0/v01FrontendAuthenticator.js";
+import v02LoginAuthenticator from "@middlewares/v0/v02LoginAuthenticator.js";
+import v03UserAuthorizer from "@middlewares/v0/v03UserAuthorizer.js";
+import v04NoPathParamsValidator from "@middlewares/v0/v04NoPathParamsValidator.js";
+import v04NoQueryParamsValidator from "@middlewares/v0/v04NoQueryParamsValidator.js";
+import v04PathParamsValidator from "@middlewares/v0/v04PathParamsValidator.js";
+import v04QueryParamsValidator from "@middlewares/v0/v04QueryParamsValidator.js";
+import v05SchemaValidator from "@middlewares/v0/v05SchemaValidator.js";
 
 // Local controller and util imports.
 import {
-  readAllUsersController,
   readBatchUsersController,
   updateBatchUsersController,
-} from "@controllers/v0/v0BatchUserController.js";
+} from "@controllers/v0/v0BatchUsersController.js";
 import {
-  createSingleNewSignupController,
-  deleteSingleUserByEmailController,
-  deleteSingleUserController,
-  readSingleUserByEmailController,
-  readSingleUserController,
-  updateSingleUserByEmailController,
-  updateSingleUserController,
-} from "@controllers/v0/v0SingleUserController.js";
+  createNewSignupController,
+  readAllUsersController,
+} from "@src/controllers/v0/v0SimpleController.js";
+import {
+  deleteOneUserController,
+  readOneUserController,
+  updateOneUserController,
+} from "@src/controllers/v0/v0SingleUserController.js";
 
 // Define new express router, and use controllers to handle http request.
 export const V0USERS_ROUTE = "/v0/users";
 export default function v0UsersRouter(): Router {
   const router: Router = Router();
 
-  // IMPORTANT!!
-  // Specific/longer routes first, generic routes last.
+  // Enforce only allowing traffic from the frontend.
+  router.use(v01FrontendAuthenticator);
 
-  // Handles GET request to READ batch users by query parameters.
-  router.get(
-    "/batch",
-    [v0MockAuthenticator],
-    (req: Request, res: Response, next: NextFunction): void => {
-      readBatchUsersController(req, res, next);
-    },
-  );
+  // ---- Simple Users CRUD Operations ----
 
-  // Handles PUT request to UPDATE batch users by query parameters.
-  router.put(
-    "/batch",
-    [v0MockAuthenticator],
-    (req: Request, res: Response, next: NextFunction): void => {
-      updateBatchUsersController(req, res, next);
-    },
-  );
-
-  // Handles GET request to READ a single user by email.
-  router.get(
-    "/emailAddress/:emailAddress",
-    [v0MockAuthenticator],
-    (req: Request, res: Response, next: NextFunction): void => {
-      readSingleUserByEmailController(req, res, next);
-    },
-  );
-
-  // Handles PUT request to UPDATE a single user by email.
-  router.put(
-    "/emailAddress/:emailAddress",
-    [v0MockAuthenticator],
-    (req: Request, res: Response, next: NextFunction): void => {
-      updateSingleUserByEmailController(req, res, next);
-    },
-  );
-
-  // Handles DELETE request to DELETE a single user by email.
-  router.delete(
-    "/emailAddress/:emailAddress",
-    [v0MockAuthenticator],
-    (req: Request, res: Response, next: NextFunction): void => {
-      deleteSingleUserByEmailController(req, res, next);
-    },
-  );
-
-  // Handles GET request to READ a single user by id.
-  router.get(
-    "/:id",
-    [v0MockAuthenticator],
-    (req: Request, res: Response, next: NextFunction): void => {
-      readSingleUserController(req, res, next);
-    },
-  );
-
-  // Handles PUT request to UPDATE a single user by id.
-  router.put(
-    "/:id",
-    [v0MockAuthenticator],
-    (req: Request, res: Response, next: NextFunction): void => {
-      updateSingleUserController(req, res, next);
-    },
-  );
-
-  // Handles DELETE request to DELETE a single user by id.
-  router.delete(
-    "/:id",
-    [v0MockAuthenticator],
-    (req: Request, res: Response, next: NextFunction): void => {
-      deleteSingleUserController(req, res, next);
-    },
-  );
-
-  // Handles POST request to CREATE a single NewSignup user.
+  // Handle POST requests to CREATE one new user.
   router.post(
-    "/",
-    [],
-    (req: Request, res: Response, next: NextFunction): void => {
-      createSingleNewSignupController(req, res, next);
-    },
+    "/new",
+    [v04NoPathParamsValidator, v04NoQueryParamsValidator, v05SchemaValidator],
+    createNewSignupController,
   );
 
-  // Handles GET request to READ all users.
+  // Handle GET requests to READ all users.
   router.get(
     "/",
-    [v0MockAuthenticator],
-    (req: Request, res: Response, next: NextFunction): void => {
-      readAllUsersController(req, res, next);
-    },
+    [
+      v02LoginAuthenticator,
+      v03UserAuthorizer,
+      v04NoPathParamsValidator,
+      v04NoQueryParamsValidator,
+    ],
+    readAllUsersController,
   );
 
-  // Catch-all route for any other request (GET, PUT, POST, PATCH, DELETE).
+  // ---- Single Users CRUD Operations ----
+
+  // Handle GET requests to READ one user by id.
+  router.get(
+    "/:id",
+    [
+      v02LoginAuthenticator,
+      v03UserAuthorizer,
+      v04PathParamsValidator,
+      v04NoQueryParamsValidator,
+    ],
+    readOneUserController,
+  );
+
+  // Handle PUT requests to UPDATE one user by id.
+  router.put(
+    "/:id",
+    [
+      v02LoginAuthenticator,
+      v03UserAuthorizer,
+      v04PathParamsValidator,
+      v04NoQueryParamsValidator,
+      v05SchemaValidator,
+    ],
+    updateOneUserController,
+  );
+
+  // Handle DELETE requests to DELETE one user by id.
+  router.delete(
+    "/:id",
+    [
+      v02LoginAuthenticator,
+      v03UserAuthorizer,
+      v04PathParamsValidator,
+      v04NoQueryParamsValidator,
+    ],
+    deleteOneUserController,
+  );
+
+  // ---- Batch Users CRUD Operations ----
+
+  // Handle GET requests to READ batch users with query param filters.
+  router.get(
+    "/",
+    [
+      v02LoginAuthenticator,
+      v03UserAuthorizer,
+      v04NoPathParamsValidator,
+      v04QueryParamsValidator,
+    ],
+    readBatchUsersController,
+  );
+
+  // Handle PUT requests to UPDATE batch users with query param filters.
+  router.put(
+    "/",
+    [
+      v02LoginAuthenticator,
+      v03UserAuthorizer,
+      v04NoPathParamsValidator,
+      v04QueryParamsValidator,
+      v05SchemaValidator,
+    ],
+    updateBatchUsersController,
+  );
+
+  // Catch-all route for any other request (PATCH, OPTIONS, etc.)
   router.all(
     "*",
     [], // No middleware for catch-all for now.
     (req: Request, res: Response, next: NextFunction): void => {
       next(
-        new ServiceNotFoundError(
-          `Requested service ${req.method} ${req.originalUrl} is undefined.`,
-        ),
+        new ServiceNotFoundError({
+          message: `Requested service ${req.method} ${req.originalUrl} is undefined.`,
+          details:
+            "This error is caught by the catch-all route in the v0 users router.",
+        }),
       );
     },
   );

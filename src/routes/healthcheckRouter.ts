@@ -40,9 +40,11 @@ export default function healthcheckRouter(): Router {
   // Catch-all route for any other request (GET, PUT, POST, PATCH, DELETE).
   router.all("*", (req: Request, res: Response, next: NextFunction) => {
     next(
-      new ServiceNotFoundError(
-        `Requested service ${req.method} ${req.originalUrl} is undefined.`,
-      ),
+      new ServiceNotFoundError({
+        message: `Requested service ${req.method} ${req.originalUrl} is undefined.`,
+        details:
+          "This error is caught by the catch-all route in the healthcheck router.",
+      }),
     );
   });
 

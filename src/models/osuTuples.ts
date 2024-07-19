@@ -1,4 +1,4 @@
-// ./src/models/v1/osuStringLiterals.ts
+// ./src/models/osuTuples.ts
 //
 // String literals tuples of OSU's undergrad year, major and pre-prof options.
 

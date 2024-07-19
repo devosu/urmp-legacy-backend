@@ -1,4 +1,4 @@
-// ./src/models/v1/worldLanguageStringLiterals.ts
+// ./src/models/top200WorldLanguagesTuple.ts
 //
 // String literals tuple of top 200 most used world languages.
 // Source: https://internetlanguages.org/media/pdf/PS_Figure_3-full_language_matrix.pdf
