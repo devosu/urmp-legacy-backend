@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.4.0](https://github.com/devosu/research-mentorship-backend-lite/compare/v3.3.0...v3.4.0) (2024-07-19)
+
+
+### Features
+
+* **v0batchuserscontroller.js:** combined read all controller with read w/out query params ([9cee0d7](https://github.com/devosu/research-mentorship-backend-lite/commit/9cee0d7e336370fceddad6e333f7c8c10c040885))
+
 ## [3.3.0](https://github.com/devosu/research-mentorship-backend-lite/compare/v3.2.0...v3.3.0) (2024-07-19)
 
 
