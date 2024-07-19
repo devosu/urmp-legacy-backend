@@ -1,6 +1,6 @@
 // ./src/controllers/v0/v0SingleUsersController.ts
 //
-// Controller functions for single user read, update, and delete operations.
+// Controller functions for single user create, read, update, and delete operations.
 
 // Type imports.
 import type { NextFunction, Request, Response } from "express";
@@ -12,6 +12,7 @@ import { fromError } from "zod-validation-error";
 
 // Local response class, mocks, and schemas imports.
 import { mockMenteesArray } from "@mocks/v0/v0MockMentees.js";
+import { sampleMockNewSignup } from "@mocks/v0/v0MockNewSignups.js";
 import DefaultAPIResponse from "@utils/DefaultAPIResponse.js";
 
 // Local error and utils imports.
@@ -21,6 +22,31 @@ import ResourceNotFoundError from "@errors/ResourceNotFoundError.js";
 // Single ops controller definitions,
 // using ONLY the `id` path params,
 // NOT using ANY query params.
+
+export function createNewSignupController(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): void {
+  try {
+    res.status(StatusCodes.CREATED).json(
+      new DefaultAPIResponse(
+        // biome-ignore format: added alignment for clarity.
+        {
+          statusCode      : StatusCodes.CREATED,
+          successMessage  : "A NewSignup user has been succesfully created. See response.body.data[0] for details.",
+          errorMessage    : null,
+          errorDetails    : null,
+          data            : [sampleMockNewSignup],
+          isProductionData: false,
+        },
+      ),
+    );
+  } catch (error) {
+    // Gracefully handle unknown error.
+    next(error);
+  }
+}
 
 export function readOneUserController(
   req: Request,

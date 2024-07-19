@@ -76,7 +76,8 @@ export function readBatchUsersController(
           return user.adminApproved === queryAdminApproved;
         }
 
-        return false;
+        // If no query params are provided, return all users.
+        return true;
       });
 
     res.status(StatusCodes.OK).json(

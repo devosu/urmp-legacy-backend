@@ -33,9 +33,6 @@ import {
 } from "@controllers/v0/v0BatchUsersController.js";
 import {
   createNewSignupController,
-  readAllUsersController,
-} from "@src/controllers/v0/v0SimpleController.js";
-import {
   deleteOneUserController,
   readOneUserController,
   updateOneUserController,
@@ -58,16 +55,31 @@ export default function v0UsersRouter(): Router {
     createNewSignupController,
   );
 
-  // Handle GET requests to READ all users.
+  // ---- Batch Users CRUD Operations ----
+
+  // Handle GET requests to READ batch users with query param filters.
   router.get(
     "/",
     [
       v02LoginAuthenticator,
       v03UserAuthorizer,
       v04NoPathParamsValidator,
-      v04NoQueryParamsValidator,
+      v04QueryParamsValidator,
     ],
-    readAllUsersController,
+    readBatchUsersController,
+  );
+
+  // Handle PUT requests to UPDATE batch users with query param filters.
+  router.put(
+    "/",
+    [
+      v02LoginAuthenticator,
+      v03UserAuthorizer,
+      v04NoPathParamsValidator,
+      v04QueryParamsValidator,
+      v05SchemaValidator,
+    ],
+    updateBatchUsersController,
   );
 
   // ---- Single Users CRUD Operations ----
@@ -107,33 +119,6 @@ export default function v0UsersRouter(): Router {
       v04NoQueryParamsValidator,
     ],
     deleteOneUserController,
-  );
-
-  // ---- Batch Users CRUD Operations ----
-
-  // Handle GET requests to READ batch users with query param filters.
-  router.get(
-    "/",
-    [
-      v02LoginAuthenticator,
-      v03UserAuthorizer,
-      v04NoPathParamsValidator,
-      v04QueryParamsValidator,
-    ],
-    readBatchUsersController,
-  );
-
-  // Handle PUT requests to UPDATE batch users with query param filters.
-  router.put(
-    "/",
-    [
-      v02LoginAuthenticator,
-      v03UserAuthorizer,
-      v04NoPathParamsValidator,
-      v04QueryParamsValidator,
-      v05SchemaValidator,
-    ],
-    updateBatchUsersController,
   );
 
   // Catch-all route for any other request (PATCH, OPTIONS, etc.)
