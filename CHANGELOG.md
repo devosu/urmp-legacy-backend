@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.3.0](https://github.com/devosu/research-mentorship-backend-lite/compare/v3.2.0...v3.3.0) (2024-07-19)
+
+
+### Features
+
+* **/v0/v0usersrouter:** refactored user schema to include timestamps, added all working controllers ([068554e](https://github.com/devosu/research-mentorship-backend-lite/commit/068554eb2aac4ab74f27da2c35e39383be685817)), closes [#27](https://github.com/devosu/research-mentorship-backend-lite/issues/27)
+
 ## [3.2.0](https://github.com/devosu/research-mentorship-backend-lite/compare/v3.1.0...v3.2.0) (2024-07-16)
 
 
