@@ -36,6 +36,9 @@ export function readBatchUsersController(
   next: NextFunction,
 ): void {
   try {
+    // IMPORTANT!!
+    // TODO: modularize cleaning up query params into a separate function.
+
     let queryUserType: UserType | undefined = undefined;
     if (req.query.userType) {
       queryUserType = UserType.parse(req.query.userType);

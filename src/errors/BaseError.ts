@@ -43,22 +43,18 @@ export default class BaseError extends Error {
    * @param message     - A message describing the error.
    * @param details     - Optional additional details or resolution steps for the error.
    */
-  constructor(statusCode: StatusCodes, options: ErrorOptions) 
-  // biome-ignore format: added alignment for clarity.
-  {
+  constructor(statusCode: StatusCodes, options: ErrorOptions) {
 
-    // Use object destructuring to extract the options.
+    // Use object destructuring to extract the options, 
+    // then call the super constructor with the message.
     const { message, details } = options;
+    super(message);
 
-    const reasonPhrase    = `${statusCode} ${getReasonPhrase(statusCode) || "Unclassified Error"}`;
-    const enhancedMessage = `${reasonPhrase}: ${message}`;
-
-    super(enhancedMessage);
-
-    this.name             = this.constructor.name;
-    this.statusCode       = statusCode;
-    this.reasonPhrase     = reasonPhrase;
-    this.details          = details? details : null;
+    const reasonPhrase         = `${statusCode} ${getReasonPhrase(statusCode) || "Unclassified Error"}`;
+    this.name                  = this.constructor.name;
+    this.statusCode            = statusCode;
+    this.reasonPhrase          = reasonPhrase;
+    this.details               = details? details : null;
 
     // Ensures that instanceof checks work correctly even when transpiling down to ES5 or lower, 
     // where native class syntax does not exist and classes are simulated using functions.

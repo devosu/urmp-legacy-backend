@@ -24,7 +24,8 @@ import v04NoPathParamsValidator from "@middlewares/v0/v04NoPathParamsValidator.j
 import v04NoQueryParamsValidator from "@middlewares/v0/v04NoQueryParamsValidator.js";
 import v04PathParamsValidator from "@middlewares/v0/v04PathParamsValidator.js";
 import v04QueryParamsValidator from "@middlewares/v0/v04QueryParamsValidator.js";
-import v05SchemaValidator from "@middlewares/v0/v05SchemaValidator.js";
+import v05NewSignupValidator from "@middlewares/v0/v05NewSignupValidator.js";
+import v05NonAdminValidator from "@middlewares/v0/v05NonAdminValidator.js";
 
 // Local controller and util imports.
 import {
@@ -51,7 +52,11 @@ export default function v0UsersRouter(): Router {
   // Handle POST requests to CREATE one new user.
   router.post(
     "/new",
-    [v04NoPathParamsValidator, v04NoQueryParamsValidator, v05SchemaValidator],
+    [
+      v04NoPathParamsValidator,
+      v04NoQueryParamsValidator,
+      v05NewSignupValidator,
+    ],
     createNewSignupController,
   );
 
@@ -77,7 +82,7 @@ export default function v0UsersRouter(): Router {
       v03UserAuthorizer,
       v04NoPathParamsValidator,
       v04QueryParamsValidator,
-      v05SchemaValidator,
+      v05NonAdminValidator,
     ],
     updateBatchUsersController,
   );
@@ -104,7 +109,7 @@ export default function v0UsersRouter(): Router {
       v03UserAuthorizer,
       v04PathParamsValidator,
       v04NoQueryParamsValidator,
-      v05SchemaValidator,
+      v05NonAdminValidator,
     ],
     updateOneUserController,
   );

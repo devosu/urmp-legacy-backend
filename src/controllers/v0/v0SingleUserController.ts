@@ -23,6 +23,16 @@ import ResourceNotFoundError from "@errors/ResourceNotFoundError.js";
 // using ONLY the `id` path params,
 // NOT using ANY query params.
 
+/**
+ * Creates a new signup.
+ *
+ * - Responds with 201 Created and the new signup details.
+ * - Handles any unexpected errors.
+ *
+ * @param req - The request object.
+ * @param res - The response object.
+ * @param next - The next middleware function.
+ */
 export function createNewSignupController(
   req: Request,
   res: Response,
@@ -30,53 +40,56 @@ export function createNewSignupController(
 ): void {
   try {
     res.status(StatusCodes.CREATED).json(
-      new DefaultAPIResponse(
-        // biome-ignore format: added alignment for clarity.
-        {
-          statusCode      : StatusCodes.CREATED,
-          successMessage  : "A NewSignup user has been succesfully created. See response.body.data[0] for details.",
-          errorMessage    : null,
-          errorDetails    : null,
-          data            : [sampleMockNewSignup],
-          isProductionData: false,
-        },
-      ),
+      new DefaultAPIResponse({
+        statusCode: StatusCodes.CREATED,
+        successMessage:
+          "A NewSignup user has been successfully created. See response.body.data[0] for details.",
+        errorMessage: null,
+        errorDetails: null,
+        data: [sampleMockNewSignup],
+        isProductionData: false,
+      }),
     );
   } catch (error) {
-    // Gracefully handle unknown error.
     next(error);
   }
 }
 
+/**
+ * Reads a user by ID.
+ *
+ * - Validates the user ID from the request parameters.
+ * - Checks if the user exists in the mock data.
+ * - Responds with 200 OK if the user is found.
+ * - If the user is not found, triggers a ResourceNotFoundError.
+ * - Handles Zod validation errors for the user ID format.
+ *
+ * @param req - The request object.
+ * @param res - The response object.
+ * @param next - The next middleware function.
+ */
 export function readOneUserController(
   req: Request,
   res: Response,
   next: NextFunction,
 ): void {
   try {
-    // Extract user id from path params and look up the user in mock data.
     const id: string = z.string().uuid().parse(req.params.id);
 
-    // Double check for:
-    // 1. Existance of user id.
-    // 2. Existing user id is a valid uuid by Zod shema validation.
-    // 3. Existing valid user id is in the mock data.
-    if (id && mockMenteesArray.find((mentee) => mentee.id === id)) {
+    const user = mockMenteesArray.find((mentee) => mentee.id === id);
+    if (user) {
       res.status(StatusCodes.OK).json(
-        new DefaultAPIResponse(
-          // biome-ignore format: added alignment for clarity.
-          {
-            statusCode      : StatusCodes.OK,
-            successMessage  : "Requesetd user found by provided id. See response.body.data[0] for details.",
-            errorMessage    : null,
-            errorDetails    : null,
-            data            : [mockMenteesArray.find((mentee) => mentee.id === id)],
-            isProductionData: false,
-          },
-        ),
+        new DefaultAPIResponse({
+          statusCode: StatusCodes.OK,
+          successMessage:
+            "Requested user found by provided id. See response.body.data[0] for details.",
+          errorMessage: null,
+          errorDetails: null,
+          data: [user],
+          isProductionData: false,
+        }),
       );
     } else {
-      // If user id is not found in the mock data, report resource not found.
       next(
         new ResourceNotFoundError({
           message: `Requested user with id ${id} is not found.`,
@@ -86,7 +99,6 @@ export function readOneUserController(
       );
     }
   } catch (error) {
-    // Gracefully handle Zod schema validation error and unknown error.
     if (error instanceof ZodError) {
       next(
         new InvalidPathParamsError({
@@ -101,35 +113,42 @@ export function readOneUserController(
   }
 }
 
+/**
+ * Updates a user by ID.
+ *
+ * - Validates the user ID from the request parameters.
+ * - Checks if the user exists in the mock data.
+ * - Responds with 200 OK if the user is found and "updated".
+ * - If the user is not found, triggers a ResourceNotFoundError.
+ * - Handles Zod validation errors for the user ID format.
+ *
+ * @param req - The request object.
+ * @param res - The response object.
+ * @param next - The next middleware function.
+ */
 export function updateOneUserController(
   req: Request,
   res: Response,
   next: NextFunction,
 ): void {
   try {
-    // Extract user id from path params and look up the user in mock data.
     const id: string = z.string().uuid().parse(req.params.id);
 
-    // Double check for:
-    // 1. Existance of user id.
-    // 2. Existing user id is a valid uuid by Zod shema validation.
-    // 3. Existing valid user id is in the mock data.
-    if (id && mockMenteesArray.find((mentee) => mentee.id === id)) {
+    const user = mockMenteesArray.find((mentee) => mentee.id === id);
+    if (user) {
+      // Update the user in the mock data here if needed.
       res.status(StatusCodes.OK).json(
-        new DefaultAPIResponse(
-          // biome-ignore format: added alignment for clarity.
-          {
-            statusCode      : StatusCodes.OK,
-            successMessage  : "Requesetd user (not because of mock) updated by provided id. See response.body.data[0] for updated user details.",
-            errorMessage    : null,
-            errorDetails    : null,
-            data            : [mockMenteesArray.find((mentee) => mentee.id === id)],
-            isProductionData: false,
-          },
-        ),
+        new DefaultAPIResponse({
+          statusCode: StatusCodes.OK,
+          successMessage:
+            "Requested user updated by provided id. See response.body.data[0] for updated user details.",
+          errorMessage: null,
+          errorDetails: null,
+          data: [user],
+          isProductionData: false,
+        }),
       );
     } else {
-      // If user id is not found in the mock data, report resource not found.
       next(
         new ResourceNotFoundError({
           message: `Requested user with id ${id} is not found.`,
@@ -139,7 +158,6 @@ export function updateOneUserController(
       );
     }
   } catch (error) {
-    // Gracefully handle Zod schema validation error and unknown error.
     if (error instanceof ZodError) {
       next(
         new InvalidPathParamsError({
@@ -154,35 +172,32 @@ export function updateOneUserController(
   }
 }
 
+/**
+ * Deletes a user by ID.
+ *
+ * - Validates the user ID from the request parameters.
+ * - Checks if the user exists in the mock data.
+ * - Responds with 204 No Content if the user is found and "deleted".
+ * - If the user is not found, triggers a ResourceNotFoundError.
+ * - Handles Zod validation errors for the user ID format.
+ *
+ * @param req - The request object.
+ * @param res - The response object.
+ * @param next - The next middleware function.
+ */
 export function deleteOneUserController(
   req: Request,
   res: Response,
   next: NextFunction,
 ): void {
   try {
-    // Extract user id from path params and look up the user in mock data.
     const id: string = z.string().uuid().parse(req.params.id);
 
-    // Double check for:
-    // 1. Existance of user id.
-    // 2. Existing user id is a valid uuid by Zod shema validation.
-    // 3. Existing valid user id is in the mock data.
-    if (id && mockMenteesArray.find((mentee) => mentee.id === id)) {
-      res.status(StatusCodes.NO_CONTENT).json(
-        new DefaultAPIResponse(
-          // biome-ignore format: added alignment for clarity.
-          {
-            statusCode      : StatusCodes.NO_CONTENT,
-            successMessage  : "Requesetd user successfully deleted by provided id. No content (null) in response.body.data.",
-            errorMessage    : null,
-            errorDetails    : null,
-            data            : null,
-            isProductionData: false,
-          },
-        ),
-      );
+    const user = mockMenteesArray.find((mentee) => mentee.id === id);
+    if (user) {
+      // Respond with 204 No Content as per HTTP/1.1 specification for successful deletion without a response body.
+      res.status(StatusCodes.NO_CONTENT).end();
     } else {
-      // If user id is not found in the mock data, report resource not found.
       next(
         new ResourceNotFoundError({
           message: `Requested user with id ${id} is not found.`,
@@ -192,7 +207,6 @@ export function deleteOneUserController(
       );
     }
   } catch (error) {
-    // Gracefully handle Zod schema validation error and unknown error.
     if (error instanceof ZodError) {
       next(
         new InvalidPathParamsError({

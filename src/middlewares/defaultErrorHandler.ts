@@ -10,6 +10,7 @@ import type { NextFunction, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 
 // Local error imports.
+import InvalidPathParamsError from "@errors/InvalidPathParamsError.js";
 import InvalidQueryParamsError from "@errors/InvalidQueryParamsError.js";
 import InvalidSchemaError from "@errors/InvalidSchemaError.js";
 import PermissionDeniedError from "@errors/PermissionDeniedError.js";
@@ -31,6 +32,7 @@ export default function defaultErrorHandler(
 
   // Gracefully handle custom and unknown errors.
   if (
+    error instanceof InvalidPathParamsError  ||
     error instanceof InvalidQueryParamsError ||
     error instanceof InvalidSchemaError      ||
     error instanceof PermissionDeniedError   ||
