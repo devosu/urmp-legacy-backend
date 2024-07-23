@@ -1,5 +1,7 @@
 # Changelog
 
+## [3.4.2](https://github.com/devosu/research-mentorship-backend-lite/compare/v3.4.1...v3.4.2) (2024-07-23)
+
 ## [3.4.1](https://github.com/devosu/research-mentorship-backend-lite/compare/v3.4.0...v3.4.1) (2024-07-20)
 
 ## [3.4.0](https://github.com/devosu/research-mentorship-backend-lite/compare/v3.3.0...v3.4.0) (2024-07-19)
