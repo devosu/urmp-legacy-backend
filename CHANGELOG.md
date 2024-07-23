@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.5.0](https://github.com/devosu/research-mentorship-backend-lite/compare/v3.4.2...v3.5.0) (2024-07-23)
+
+
+### Features
+
+* **src/app.ts:** added cross origin request middleware to accomodate frontend requests ([5118802](https://github.com/devosu/research-mentorship-backend-lite/commit/5118802585d048dfc550d367c7d895882ab9472c))
+
 ## [3.4.2](https://github.com/devosu/research-mentorship-backend-lite/compare/v3.4.1...v3.4.2) (2024-07-23)
 
 ## [3.4.1](https://github.com/devosu/research-mentorship-backend-lite/compare/v3.4.0...v3.4.1) (2024-07-20)

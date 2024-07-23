@@ -10,6 +10,7 @@ import type { Express, NextFunction, Request, Response } from "express";
 
 // ExpressJS app setup essential imports.
 import bodyParser from "body-parser";
+import cors from "cors";
 import { config } from "dotenv-safe";
 import express from "express";
 import { StatusCodes } from "http-status-codes";
@@ -31,6 +32,9 @@ config();
 // Create and export the backend express app.
 export function createExpressApp(): Express {
   const app: Express = express();
+
+  // Use CORS middleware to handle cross-origin requests.
+  app.use(cors());
 
   // Use body-parser middleware to handle post requests.
   app.use(bodyParser.json());
