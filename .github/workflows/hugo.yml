@@ -1,0 +1,144 @@
+# ./.github/workflows/hugo.yml
+#
+# GH Actions workflow to deploy our Hugo-based API documentation to hg-pages.
+
+name: Hugo Deploy to Pages
+
+# Hugo build per every PR but only deploy when push to main,
+# see `if` conditions in `jobs` for details.
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+# Write permission to pages and id-token are required for gh-pages build.
+permissions:
+  contents: read
+  pages   : write
+  id-token: write
+
+  # Added write permissions to PR and issues to notify build/deploy completion.
+  pull-requests: write
+  issues       : write
+
+# Allow ONLY one concurrent deployment, while ensuring run to finish.
+concurrency:
+  group             : 'pages'
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  hugo-build:
+    name   : Hugo Build
+    runs-on: ubuntu-latest
+    env    : 
+      # Offcial gh-pages recommended version as of 06/24/24,
+      # see for details at: `https://gohugo.io/hosting-and-deployment/hosting-on-github`
+      HUGO_VERSION: 0.127.0
+    steps:
+      - name: Install Hugo CLI
+        run : |
+          wget -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb \
+          && sudo dpkg -i ${{ runner.temp }}/hugo.deb
+
+      - name: Install Dart Sass
+        run : sudo snap install dart-sass
+
+      - name: Checkout
+        uses: 'actions/checkout@v4'
+        with:
+          submodules : recursive
+          fetch-depth: 0
+
+      - name: Setup Pages
+        id  : pages
+        uses: 'actions/configure-pages@v4'
+
+      - name: Install Node.js dependencies
+        run : "[[ -f package-lock.json || -f npm-shrinkwrap.json ]] && npm ci || true"
+
+      - name: Build with Hugo
+        env : 
+          # For maximum backward compatibility with Hugo modules
+          HUGO_ENVIRONMENT: production
+          HUGO_ENV        : production
+          TZ              : America/Los_Angeles
+        run : |
+          hugo \
+            --gc \
+            --minify \
+            --verbose \
+            --source 'docs'\
+            --config 'docs/config.yml' \
+            --baseURL "${{ steps.pages.outputs.base_url }}/"
+
+      - name: Upload artifact
+        id  : upload-artifact
+        uses: 'actions/upload-pages-artifact@v3'
+        with: 
+          path: ./docs/public
+
+      # Only comment to PR if the triggering event is a PR.
+      # Also, the ${{ github.repository }} context ALREADY contains the repo owner
+      # (i.e. `username/reponame`).
+      - name: Report Deployed URL to PR
+        if  : ${{ github.event_name == 'pull_request' }}
+        uses: 'thollander/actions-comment-pull-request@v2'
+        with: 
+          message: |
+            To DEV's devops officer @KemingHe and the triggering person for this deployment @${{ github.triggering_actor }},
+
+            The new documentation preview of ${{ github.repository }} has been genreated and uploaded at:
+              
+            > https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts/${{ steps.upload-artifact.outputs.artifact_id }}
+
+            **Please download and manully test the live preview as part of the PR review process.**
+
+            Have a great day! :sunflower:
+
+            P.S. The build is attempted per PR update, so worry not if you see clones of me.
+
+  hugo-deploy:
+    name: Hugo Deploy
+    if  : ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+
+    runs-on    : ubuntu-latest
+    needs      : hugo-build
+    environment: 
+      # IMPORTANT!!
+      # DO NOT change the name of the gh pages deployment env,
+      # it is enforced and immutable by default.
+      name: github-pages
+      url : ${{ steps.gh-pages-deploy.outputs.page_url }}
+    
+    steps:
+      - name: Deploy to GH Pages
+        id  : gh-pages-deploy
+        uses: 'actions/deploy-pages@v4'
+        with: 
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Report Deployed URL to Actinons Log
+        run : echo "Production url at ${{ steps.gh-pages-deploy.outputs.page_url }}"
+
+      - name: Report Deployed URL as a New Issue
+        uses: 'dacbd/create-issue-action@v2'
+        with:
+          token: ${{ github.token }}
+          title: ':blue_book: New Documentation Deployment from ${{ github.sha }}'
+          body : |
+            To: DEV's @technology team and the triggering person for this deployment @${{ github.triggering_actor }},
+
+            The new documentation of ${{ github.repository }} has been deployed and live at: 
+              
+            > ${{ steps.gh-pages-deploy.outputs.page_url }}
+
+            **Please reach out to keminghe.career[at]gmail.com for questions, otherwise, you can safely close this issue.**
+
+            Have a great day!
+          

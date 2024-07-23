@@ -8,14 +8,17 @@ import type { Config } from "jest";
 
 // Const for coverage threshold.
 const customCoverageThreshold = {
-  // // Test coverage for branch must be above 93%.
+  // Test converage for total statements must be above 93%.
+  // statements: 93,
+
+  // // Test coverage for total branches must be above 93%.
   // branches: 93,
-  // // Test coverage for functions must be above 93%.
+
+  // // Test coverage for total functions must be above 93%.
   // functions: 93,
-  // // Test coverage for lines must be above 93%.
-  // lines: 93,
-  // // At most 20 statements can be uncovered.
-  // statements: -20,
+
+  // Test coverage for total lines must be above 93%.
+  lines: 93,
 };
 
 const config: Config = {
@@ -41,7 +44,7 @@ const config: Config = {
   coverageDirectory: "coverage",
 
   // Dirs to ignore for coverage.
-  coveragePathIgnorePatterns: ["src/models/v1/userInterfaces.ts"],
+  coveragePathIgnorePatterns: [],
 
   coverageProvider: "v8",
 
@@ -106,26 +109,41 @@ const config: Config = {
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
   // Must match `tsconfig.json` paths.
   moduleNameMapper: {
-    // ESNEXT compiance mapping.
+    
+    // ESNEXT compliance mapping. IMPORTANT!!
+    // Must be placed before any other mappings to resolve correctly.
     // Source module files with specific handling for `.js` extensions.
-    "^@src/(.*)\\.js$": "<rootDir>/src/$1.ts",
-    "^@config/(.*)\\.js$": "<rootDir>/src/config/$1.ts",
+    "^@src/(.*)\\.js$"        : "<rootDir>/src/$1.ts",
+
+    "^@config/(.*)\\.js$"     : "<rootDir>/src/config/$1.ts",
+    "^@controllers/(.*)\\.js$": "<rootDir>/src/controllers/$1.ts",
+    "^@errors/(.*)\\.js$"     : "<rootDir>/src/errors/$1.ts",
+    "^@interfaces/(.*)\\.js$" : "<rootDir>/src/interfaces/$1.ts",
     "^@middlewares/(.*)\\.js$": "<rootDir>/src/middlewares/$1.ts",
-    "^@models/(.*)\\.js$": "<rootDir>/src/models/$1.ts",
-    "^@routes/(.*)\\.js$": "<rootDir>/src/routes/$1.ts",
-    "^@utils/(.*)\\.js$": "<rootDir>/src/utils/$1.ts",
+    "^@mocks/(.*)\\.js$"      : "<rootDir>/src/mocks/$1.ts",
+    "^@models/(.*)\\.js$"     : "<rootDir>/src/models/$1.ts",
+    "^@routes/(.*)\\.js$"     : "<rootDir>/src/routes/$1.ts",
+    "^@services/(.*)\\.js$"   : "<rootDir>/src/services/$1.ts",
+    "^@utils/(.*)\\.js$"      : "<rootDir>/src/utils/$1.ts",
 
     // Test module files.
-    "^@__tests__/(.*)$": "<rootDir>/__tests__/$1",
+    "^@__tests__/(.*)$"   : "<rootDir>/__tests__/$1",
+
     "^@__features__/(.*)$": "<rootDir>/__tests__/__features__/$1",
 
     // Source module files.
-    "^@src/(.*)$": "<rootDir>/src/$1",
-    "^@config/(.*)$": "<rootDir>/src/config/$1",
+    "^@src/(.*)$"        : "<rootDir>/src/$1",
+
+    "^@config/(.*)$"     : "<rootDir>/src/config/$1",
+    "^@controllers/(.*)$": "<rootDir>/src/controllers/$1",
+    "^@errors/(.*)$"     : "<rootDir>/src/errors/$1",
+    "^@interfaces/(.*)$" : "<rootDir>/src/interfaces/$1",
     "^@middlewares/(.*)$": "<rootDir>/src/middlewares/$1",
-    "^@models/(.*)$": "<rootDir>/src/models/$1",
-    "^@routes/(.*)$": "<rootDir>/src/routes/$1",
-    "^@utils/(.*)$": "<rootDir>/src/utils/$1",
+    "^@mocks/(.*)$"      : "<rootDir>/src/mocks/$1",
+    "^@models/(.*)$"     : "<rootDir>/src/models/$1",
+    "^@routes/(.*)$"     : "<rootDir>/src/routes/$1",
+    "^@services/(.*)$"   : "<rootDir>/src/services/$1",
+    "^@utils/(.*)$"      : "<rootDir>/src/utils/$1",
   },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
@@ -196,12 +214,10 @@ const config: Config = {
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
   testPathIgnorePatterns: [
     "/__tests__/__features__/",
-    "/__tests__/__mocks__/",
-    "/__tests__/__servers__/",
-    "/__tests__/__utils__/",
     "/coverage",
     "/dist/",
     "/docs/",
+    "/.husky/",
     "/node_modules/",
     "/(temp|tmp)/",
   ],

@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.7.3/schema.json",
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
   "vcs": {
     "enabled": true,
     "clientKind": "git",
@@ -17,12 +17,20 @@
   "formatter": {
     "enabled": true,
     "formatWithErrors": false,
-    "ignore": ["./src/models/v1/userModel.ts", "./src/models/v1/osuEnums.ts"],
+    "ignore": [
+      "./jest.config.ts",
+      "./src/app.ts",
+      "./src/errors/BaseError.ts",
+      "./src/middlewares/defaultErrorHandler.ts",
+      "./src/mocks/**/*.ts",
+      "./src/models/**/*.ts",
+      "./src/utils/DefaultAPIResponse.ts"
+    ],
     "attributePosition": "auto",
     "indentStyle": "space",
     "indentWidth": 2,
     "lineEnding": "lf",
-    "lineWidth": 80
+    "lineWidth": 79
   },
   "javascript": {
     "jsxRuntime": "transparent",

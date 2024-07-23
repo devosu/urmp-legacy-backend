@@ -2,29 +2,28 @@
   "verbose": 2,
   "hooks": {
     "before:init": [
-      "pnpm install",
-      "pnpm run lint",
-      "pnpm test",
-      "pnpm run build"
+      "echo",
+      "echo 'As post-commit standard procedure, begin release process...'"
     ],
     "after:bump": [
       "echo",
-      "echo 'Successfully bumped to version: v${version}; now generating CHANGELOG.md...'"
+      "echo 'Successfully bumped to version: v${ version }; now generating CHANGELOG.md...'"
     ],
     "after:release": [
       "echo",
-      "echo 'New release project: ${ name }, version: v${ version } is available to be push.'",
-      "echo",
-      "echo 'As a code-safety measure, please manually create and push a `chore` commit for the release.'",
-      "echo 'i.e. titled `chore(release): v${ version }`.'"
+      "echo 'New release project: ${ name }, version: v${ version } is available to be push.'"
     ]
   },
   "git": {
-    "commit": false,
-    "push": false,
-    "requrieCleanWorkingDir": true,
     "tag": true,
-    "tagName": "v${version}"
+    "tagName": "v${version}",
+    "requireCleanWorkingDir": true,
+    "commit": true,
+    "commitMessage": "chore(release): v${version} via release-it (auto, ci env)",
+    "commitArgs": [
+      "--no-verify"
+    ],
+    "push": false
   },
   "npm": {
     "publish": false

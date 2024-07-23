@@ -64,19 +64,19 @@ jobs:
   deploy-preview:
 
     name: Deploy Preview
-
+    if  : ${{ github.event_name == 'pull_request' }}
     # Deploy to preview as test per every PR.
-    if: ${{ github.event_name == 'pull_request' }}
+
 
     # IMPORTANT: 'environment' is repo-defined, 'env' is workflow-defined.
     environment: deploy-gcp-preview
-    env:
+    env        : 
       NEW_BACKEND_PREVIEW_IMAGE_NAME: ${{ vars.GCP_BACKEND_PREVIEW_ARTIFACT_REGISTRY_REGION }}-docker.pkg.dev/${{ vars.GCP_BACKEND_PREVIEW_PROJECT_ID }}/${{ vars.GCP_BACKEND_PREVIEW_ARTIFACT_REGISTRY_NAME }}/${{ vars.GCP_BACKEND_PREVIEW_DOCKER_IMAGE_NAME}}:${{ github.sha }}
 
     # Add 'id-token' with the intended permissions for workload identity federation
     permissions:
-      contents: 'read'
-      id-token: 'write'
+      contents     : 'read'
+      id-token     : 'write'
       # Give write permission to create PR comments.
       pull-requests: 'write'
 
@@ -89,45 +89,45 @@ jobs:
 
       # GCP auth using Workdload Identity Federation
       - name: GCP Auth
-        id: auth
+        id  : auth
         uses: 'google-github-actions/auth@v2'
-        with:
-          token_format: access_token
-          project_id: ${{ vars.GCP_BACKEND_PREVIEW_PROJECT_ID }}
+        with: 
+          token_format              : access_token
+          project_id                : ${{ vars.GCP_BACKEND_PREVIEW_PROJECT_ID }}
           workload_identity_provider: ${{ vars.GCP_BACKEND_DEPLOY_WORKLOAD_IDENTITY_PROVIDER }}
-          service_account: ${{ vars.GCP_BACKEND_PREVIEW_DEPLOY_SERVICE_ACCOUNT_EMAIL }}
+          service_account           : ${{ vars.GCP_BACKEND_PREVIEW_DEPLOY_SERVICE_ACCOUNT_EMAIL }}
 
       # BEGIN - Docker auth and build (NOTE: If you already have a container image, these Docker steps can be omitted)
           
       # Docker (GCP Artifact Registry) auth using credentials json
       - name: Docker Auth
-        id: docker-auth
+        id  : docker-auth
         uses: 'docker/login-action@v3'
-        with:
+        with: 
           registry: ${{ vars.GCP_BACKEND_PREVIEW_ARTIFACT_REGISTRY_REGION }}-docker.pkg.dev
           username: oauth2accesstoken
           password: ${{ steps.auth.outputs.access_token }}
 
       - name: Docker Build and Push
-        run: |-
+        run : |-
           docker build -t "${{ env.NEW_BACKEND_PREVIEW_IMAGE_NAME }}" ./
           docker push "${{ env.NEW_BACKEND_PREVIEW_IMAGE_NAME }}"
 
       # END - Docker auth and build
 
       - name: Deploy to Cloud Run
-        id: deploy
+        id  : deploy
         uses: 'google-github-actions/deploy-cloudrun@v2'
         with:
-          service: ${{ vars.GCP_BACKEND_PREVIEW_CLOUD_RUN_SERVICE_NAME }}
-          region: ${{ vars.GCP_BACKEND_PREVIEW_CLOUD_RUN_SERVICE_REGION }}
-          image: ${{ env.NEW_BACKEND_PREVIEW_IMAGE_NAME }}
+          service : ${{ vars.GCP_BACKEND_PREVIEW_CLOUD_RUN_SERVICE_NAME }}
+          region  : ${{ vars.GCP_BACKEND_PREVIEW_CLOUD_RUN_SERVICE_REGION }}
+          image   : ${{ env.NEW_BACKEND_PREVIEW_IMAGE_NAME }}
           env_vars: |
             BACKEND_PORTPORT=${{ vars.BACKEND_PORT }}
             FIRESTORE_DATABASE_ID=${{ vars.FIREBASE_PREVIEW_FIRESTORE_DATABASE_ID }}
 
-      - name: Report Deployed URL to Actinons Log
-        run: echo "Preview url at ${{ steps.deploy.outputs.url }}"
+      - name: Report Deployed URL to Actions Log
+        run : echo "Preview url at ${{ steps.deploy.outputs.url }}"
 
       - name: Report Deployed URL to PR
         uses: 'thollander/actions-comment-pull-request@v2'
@@ -150,17 +150,16 @@ jobs:
   deploy-production:
 
     name: Deploy Production
-
-    if: ${{ github.event_name == 'push' &&  github.ref == 'refs/heads/main' }}
+    if  : ${{ github.event_name == 'push' &&  github.ref == 'refs/heads/main' }}
 
     environment: deploy-gcp-production
-    env:
+    env        : 
       NEW_BACKEND_PRODUCTION_IMAGE_NAME: ${{ vars.GCP_BACKEND_PRODUCTION_ARTIFACT_REGISTRY_REGION }}-docker.pkg.dev/${{ vars.GCP_BACKEND_PRODUCTION_PROJECT_ID }}/${{ vars.GCP_BACKEND_PRODUCTION_ARTIFACT_REGISTRY_NAME }}/${{ vars.GCP_BACKEND_PRODUCTION_DOCKER_IMAGE_NAME}}:${{ github.sha }}
 
     permissions:
       contents: 'read'
       id-token: 'write'
-      issues: 'write'
+      issues  : 'write'
 
     runs-on: ubuntu-latest
     steps:
@@ -169,48 +168,48 @@ jobs:
         uses: 'actions/checkout@v4'
 
       - name: GCP Auth
-        id: auth
+        id  : auth
         uses: 'google-github-actions/auth@v2'
-        with:
-          token_format: access_token
-          project_id: ${{ vars.GCP_BACKEND_PRODUCTION_PROJECT_ID }}
+        with: 
+          token_format              : access_token
+          project_id                : ${{ vars.GCP_BACKEND_PRODUCTION_PROJECT_ID }}
           workload_identity_provider: ${{ vars.GCP_BACKEND_DEPLOY_WORKLOAD_IDENTITY_PROVIDER }}
-          service_account: ${{ vars.GCP_BACKEND_PRODUCTION_DEPLOY_SERVICE_ACCOUNT_EMAIL }}
+          service_account           : ${{ vars.GCP_BACKEND_PRODUCTION_DEPLOY_SERVICE_ACCOUNT_EMAIL }}
     
       - name: Docker Auth
-        id: docker-auth
+        id  : docker-auth
         uses: 'docker/login-action@v3'
-        with:
+        with: 
           registry: ${{ vars.GCP_BACKEND_PRODUCTION_ARTIFACT_REGISTRY_REGION }}-docker.pkg.dev
           username: oauth2accesstoken
           password: ${{ steps.auth.outputs.access_token }}
 
       - name: Docker Build and Push
-        run: |-
+        run : |-
           docker build -t "${{ env.NEW_BACKEND_PRODUCTION_IMAGE_NAME }}" ./
           docker push "${{ env.NEW_BACKEND_PRODUCTION_IMAGE_NAME }}"
 
 
       - name: Deploy to Cloud Run
-        id: deploy
+        id  : deploy
         uses: 'google-github-actions/deploy-cloudrun@v2'
-        with:
-          service: ${{ vars.GCP_BACKEND_PRODUCTION_CLOUD_RUN_SERVICE_NAME }}
-          region: ${{ vars.GCP_BACKEND_PRODUCTION_CLOUD_RUN_SERVICE_REGION }}
-          image: ${{ env.NEW_BACKEND_PRODUCTION_IMAGE_NAME }}
+        with: 
+          service : ${{ vars.GCP_BACKEND_PRODUCTION_CLOUD_RUN_SERVICE_NAME }}
+          region  : ${{ vars.GCP_BACKEND_PRODUCTION_CLOUD_RUN_SERVICE_REGION }}
+          image   : ${{ env.NEW_BACKEND_PRODUCTION_IMAGE_NAME }}
           env_vars: |
             BACKEND_PORT=${{ vars.BACKEND_PORT }}
             FIRESTORE_DATABASE_ID=${{ vars.FIREBASE_PRODUCTION_FIRESTORE_DATABASE_ID }}
 
-      - name: Report Deployed URL to Actinons Log
-        run: echo "Production url at ${{ steps.deploy.outputs.url }}"
+      - name: Report Deployed URL to Actions Log
+        run : echo "Production url at ${{ steps.deploy.outputs.url }}"
 
       - name: Report Deployed URL as a New Issue
         uses: dacbd/create-issue-action@v2
         with:
           token: ${{ github.token }}
           title: ':rocket: New Production Deployment from ${{ github.sha }}'
-          body: |
+          body : |
             To DEV's @technology team and the triggering person for this deployment @${{ github.triggering_actor }},
 
             The new production of ${{ github.repository }} has been deployed and live at: 

@@ -1,0 +1,14 @@
+# ./docs/config.yml
+#
+# Config file for Hugo static site generation.
+
+baseURL: 'https://docs.api.research.osu.dev'
+languageCode: en-us
+
+title: Research Mentorship API Documentation
+
+enableEmoji: true
+
+module:
+  imports:
+    - path: 'https://github.com/bep/docuapi/v2'

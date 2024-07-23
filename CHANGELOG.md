@@ -1,5 +1,89 @@
 # Changelog
 
+## [3.4.2](https://github.com/devosu/research-mentorship-backend-lite/compare/v3.4.1...v3.4.2) (2024-07-23)
+
+## [3.4.1](https://github.com/devosu/research-mentorship-backend-lite/compare/v3.4.0...v3.4.1) (2024-07-20)
+
+## [3.4.0](https://github.com/devosu/research-mentorship-backend-lite/compare/v3.3.0...v3.4.0) (2024-07-19)
+
+
+### Features
+
+* **v0batchuserscontroller.js:** combined read all controller with read w/out query params ([9cee0d7](https://github.com/devosu/research-mentorship-backend-lite/commit/9cee0d7e336370fceddad6e333f7c8c10c040885))
+
+## [3.3.0](https://github.com/devosu/research-mentorship-backend-lite/compare/v3.2.0...v3.3.0) (2024-07-19)
+
+
+### Features
+
+* **/v0/v0usersrouter:** refactored user schema to include timestamps, added all working controllers ([068554e](https://github.com/devosu/research-mentorship-backend-lite/commit/068554eb2aac4ab74f27da2c35e39383be685817)), closes [#27](https://github.com/devosu/research-mentorship-backend-lite/issues/27)
+
+## [3.2.0](https://github.com/devosu/research-mentorship-backend-lite/compare/v3.1.0...v3.2.0) (2024-07-16)
+
+
+### Features
+
+* **defaultapiresponse:** added isProductionData (default true and nullable) flag to default res obj ([17e17da](https://github.com/devosu/research-mentorship-backend-lite/commit/17e17dacb736c3fde39f42e3e62f1a5ffaf8fc80))
+
+## [3.1.0](https://github.com/devosu/research-mentorship-backend-lite/compare/v3.0.0...v3.1.0) (2024-07-15)
+
+
+### Features
+
+* **all:** enforced unified res, implemented /batch route, found bugs with single/multi same route ([2dd0729](https://github.com/devosu/research-mentorship-backend-lite/commit/2dd0729c07b1fb0198f827ae0921f959d265ec67)), closes [#18](https://github.com/devosu/research-mentorship-backend-lite/issues/18)
+
+
+### Bug Fixes
+
+* **.husky/pre-commit:** moved lint:fix before git add --all to avoid dirty working dir post commit ([537178f](https://github.com/devosu/research-mentorship-backend-lite/commit/537178f43ee3d0847ca779611b3ba459768b67b3))
+
+## [3.0.0](https://github.com/devosu/research-mentorship-backend-lite/compare/v2.0.2...v3.0.0) (2024-07-14)
+
+
+### ⚠ BREAKING CHANGES
+
+* **all:** sunset /v0/mentors, base route / now tmp redir to /healthcheck to reduce
+redundancy, mentor schema now requires non-empy array field of proficient languages
+
+### Features
+
+* **all:** sunset /v*/mentors route, complete redesign and implement /v0/users route ([bfb70ac](https://github.com/devosu/research-mentorship-backend-lite/commit/bfb70acfe306e8ca0fc896961e8a292144f979a8)), closes [#18](https://github.com/devosu/research-mentorship-backend-lite/issues/18)
+
+## [2.0.2](https://github.com/devosu/research-mentorship-backend-lite/compare/v2.0.0...v2.0.2) (2024-07-08)
+
+
+### Bug Fixes
+
+* **.husky/post-commit:** added multi cmd husky disable to prevent hook looping by release-it ([0ec9d2b](https://github.com/devosu/research-mentorship-backend-lite/commit/0ec9d2b676984c7e7cfd980782ea7025a73b7899))
+* **.release-it.json:** corrected commit config with official release-it doc ([e76db6e](https://github.com/devosu/research-mentorship-backend-lite/commit/e76db6edec238de81724a36bf093b288e33a8805))
+
+## [2.0.1](https://github.com/devosu/research-mentorship-backend-lite/compare/v2.0.0...v2.0.1) (2024-07-08)
+
+
+### Bug Fixes
+
+* **.release-it.json:** corrected commit config with official release-it doc ([e76db6e](https://github.com/devosu/research-mentorship-backend-lite/commit/e76db6edec238de81724a36bf093b288e33a8805))
+
+## [2.0.0](https://github.com/devosu/research-mentorship-backend-lite/compare/v1.0.0...v2.0.0) (2024-07-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* **controllers dir:** adopted zod for schema validating, also adopted middleware and controller for http
+request handling, removed placeholder data as it is no longer schema-compliant, all previous code
+will NOT work
+
+### Features
+
+* **controllers dir:** separated model file functions, and adopted zod for schema validation ([6cf41a0](https://github.com/devosu/research-mentorship-backend-lite/commit/6cf41a0ab261a76e481b248d63e2fca5fbfa145c)), closes [#19](https://github.com/devosu/research-mentorship-backend-lite/issues/19)
+* **routes/v1/mentors.ts:** implemented hard-coded version of the all approved mentors route ([556dd4f](https://github.com/devosu/research-mentorship-backend-lite/commit/556dd4fff4fc3ecdc330ec4d1cc631ad3b1ca9e6))
+
+
+### Bug Fixes
+
+* **,release-it.json:** added --ci flag to husky post-commit and removed -y flag from release-it ([9ea06e8](https://github.com/devosu/research-mentorship-backend-lite/commit/9ea06e8bd3535c71628758d266e77fd1076383a6))
+* **.husky/post-commit:** added ci env (true) to prevent release-it triggering husky ([9fde99c](https://github.com/devosu/research-mentorship-backend-lite/commit/9fde99c094ca079e6990d6191e849a713abdf8fd))
+
 ## [1.0.0](https://github.com/devosu/research-mentorship-backend-lite/compare/v0.3.3...v1.0.0) (2024-06-23)
 
 

@@ -1,4 +1,31 @@
+#!/bin/sh
+#
+# Pre-commit hook script
+
+# Install dependencies and update.
 pnpm install
+pnpm update
+
+# Run linter.
 pnpm run lint
+
+# Stage any changes made by the commands above.
+git add --all
+
+# Run unit and behavior tests.
 pnpm test
-pnpm run build
+
+# Run build tests.
+# Check if Docker is installed by checking the command's availability.
+# Attempt to build the Docker image if Docker is installed.
+if command -v docker >/dev/null 2>&1; then
+  echo
+	echo "Docker installation detected, adding docker build to the test build process."
+	echo
+  pnpm run build
+else
+  echo
+	echo "Docker not found, skipping docker build test..."
+  echo
+  pnpm run build:tsc
+fi

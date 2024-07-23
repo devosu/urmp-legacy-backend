@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "module": "ESNEXT",
+    "module": "ESNext",
     "target": "ESNext",
     "moduleResolution": "Node",
     "outDir": "./dist",
@@ -10,7 +10,10 @@
       "@src/*": ["src/*"],
       "@config/*": ["src/config/*"],
       "@controllers/*": ["src/controllers/*"],
+      "@errors/*": ["src/errors/*"],
+      "@interfaces/*": ["src/interfaces/*"],
       "@middlewares/*": ["src/middlewares/*"],
+      "@mocks/*": ["src/mocks/*"],
       "@models/*": ["src/models/*"],
       "@routes/*": ["src/routes/*"],
       "@services/*": ["src/services/*"],
