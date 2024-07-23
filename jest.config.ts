@@ -8,14 +8,17 @@ import type { Config } from "jest";
 
 // Const for coverage threshold.
 const customCoverageThreshold = {
-  // // Test coverage for branch must be above 93%.
+  // Test converage for total statements must be above 93%.
+  // statements: 93,
+
+  // // Test coverage for total branches must be above 93%.
   // branches: 93,
-  // // Test coverage for functions must be above 93%.
+
+  // // Test coverage for total functions must be above 93%.
   // functions: 93,
-  // // Test coverage for lines must be above 93%.
-  // lines: 93,
-  // // At most 20 statements can be uncovered.
-  // statements: -20,
+
+  // Test coverage for total lines must be above 93%.
+  lines: 93,
 };
 
 const config: Config = {
@@ -41,7 +44,7 @@ const config: Config = {
   coverageDirectory: "coverage",
 
   // Dirs to ignore for coverage.
-  coveragePathIgnorePatterns: ["src/models/v1/userInterfaces.ts"],
+  coveragePathIgnorePatterns: [],
 
   coverageProvider: "v8",
 
